@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import ContralineLogo from "../assets/contraline-logo.png";
-import SYFLogo from "../assets/syf-logo.png";
 import VueLogo from "../assets/vue-logo.png";
 import ReactLogo from "../assets/react-logo.png";
 
@@ -128,26 +127,6 @@ export default class ProjectList extends Component {
                     </SubHeader>
                 </Header>
                 <List>
-                    <ProjectLink href="https://mpos.syf.com/?client=chevron">
-                        <Thumbnail src={SYFLogo} />
-                        <Text>
-                            <Title>MPOS</Title>
-                            <SubTitle>Professional</SubTitle>
-                            <Horizontal>
-                                <SubTitle>Tools:</SubTitle>
-                                <Tools>React.js, Redux, Redux-Form</Tools>
-                            </Horizontal>
-                            <SubTitle>Description</SubTitle>
-                            <Description>
-                                The mPOS application for Synchrony Financial is
-                                a mobile point of sale application that allows
-                                users to sign up for credit cards in-store. This
-                                responsive web app uses a wizard sign up flow to
-                                allow for the least amount of friction to users
-                                when signing up.
-                            </Description>
-                        </Text>
-                    </ProjectLink>
                     <ProjectLink href="http://contraline.com">
                         <Thumbnail src={ContralineLogo} />
                         <Text>

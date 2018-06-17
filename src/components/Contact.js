@@ -50,12 +50,6 @@ export default class Contact extends Component {
                         @mattmcguin
                     </Link>
                 </ContactInfo>
-                <ContactInfo>
-                    Resume:{" "}
-                    <Link href="https://drive.google.com/open?id=1xHGwEPANoAvRqHamxa6LGCurJ7k7Tp0Q">
-                        Google Doc
-                    </Link>
-                </ContactInfo>
             </Container>
         );
     }

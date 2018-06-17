@@ -4,9 +4,6 @@
 # testing
 /coverage
 
-# production
-/build
-
 # API keys and configs
 /src/configs
 
