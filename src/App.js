@@ -1,21 +1,33 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import Hero from "./components/Hero";
+import ProjectList from "./components/ProjectList";
+import Contact from "./components/Contact";
+import scrollToComponent from "react-scroll-to-component";
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    scrollToProjects = () => {
+        scrollToComponent(this.Projects, { align: "top" });
+    };
+
+    scrollToContact = () => {
+        scrollToComponent(this.Contact, { align: "top" });
+    };
+
+    render() {
+        return (
+            <div className="App">
+                <Hero scrollToProjects={this.scrollToProjects} />
+                <ProjectList
+                    ref={element => {
+                        this.Projects = element;
+                    }}
+                    scrollToContact={this.scrollToContact}
+                />
+                <Contact ref={element => (this.Contact = element)} />
+            </div>
+        );
+    }
 }
 
 export default App;
