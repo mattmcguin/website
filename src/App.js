@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import Hero from "./components/Hero";
 import ProjectList from "./components/ProjectList";
 import Contact from "./components/Contact";
