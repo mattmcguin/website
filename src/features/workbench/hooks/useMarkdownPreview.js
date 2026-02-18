@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import { markdownContextForPath } from '../utils/fileUtils.js';
 import { escapeHtml } from '../utils/textUtils.js';
 
-export function useMarkdownPreview({ activePath, allFiles, isMarkdown, viewMode, githubUsername }) {
+export function useMarkdownPreview({ activePath, allFiles, isMarkdown, githubUsername }) {
   const [renderedMarkdown, setRenderedMarkdown] = useState({});
   const [renderingMarkdown, setRenderingMarkdown] = useState({});
 
   useEffect(() => {
     const content = allFiles[activePath];
-    if (!isMarkdown || viewMode !== 'preview' || !content || renderedMarkdown[activePath]) {
+    if (!isMarkdown || !content || renderedMarkdown[activePath]) {
       return;
     }
 
@@ -53,7 +53,7 @@ export function useMarkdownPreview({ activePath, allFiles, isMarkdown, viewMode,
     return () => {
       cancelled = true;
     };
-  }, [activePath, allFiles, githubUsername, isMarkdown, renderedMarkdown, viewMode]);
+  }, [activePath, allFiles, githubUsername, isMarkdown, renderedMarkdown]);
 
   return { renderedMarkdown, renderingMarkdown };
 }

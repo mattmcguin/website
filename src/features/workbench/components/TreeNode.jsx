@@ -30,6 +30,8 @@ export default function TreeNode({
   }
 
   if (node.type === 'file') {
+    const showChevronSpacer = depth > 0;
+
     return (
       <li>
         <button
@@ -39,7 +41,7 @@ export default function TreeNode({
           onClick={() => onOpen(node.openPath || node.path)}
           onKeyDown={handleFileKeyDown}
         >
-          <span className="tree-chevron-spacer" aria-hidden="true" />
+          {showChevronSpacer && <span className="tree-chevron-spacer" aria-hidden="true" />}
           <span className={iconClassForPath(node.path)} aria-hidden="true" />
           {node.name}
         </button>
