@@ -23,6 +23,7 @@ function toSharedRepoTree(nodes, repoName) {
 }
 
 export default function Sidebar({
+  className = 'sidebar',
   tree,
   expanded,
   onToggleFolder,
@@ -44,7 +45,7 @@ export default function Sidebar({
   onOpenGitHubRepoFile
 }) {
   return (
-    <aside className="sidebar">
+    <aside className={className}>
       <div className="sidebar-section">
         <div className="sidebar-row">
           <p>OPEN EDITORS</p>

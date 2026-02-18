@@ -1,19 +1,33 @@
 # dependencies
 /node_modules
 
-# testing
+# build output and caches
+dist
+/dist
+.vite
+*.tsbuildinfo
+
+# testing and coverage
 /coverage
 
-# API keys and configs
+# environment and local configs
+.env
+.env.*
+!.env.example
 /src/configs
 
-# misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
+# logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+
+# editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store

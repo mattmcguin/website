@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import ActivityBar from '../features/workbench/components/ActivityBar.jsx';
 import EditorPane from '../features/workbench/components/EditorPane.jsx';
 import QuickOpenModal from '../features/workbench/components/QuickOpenModal.jsx';
@@ -18,6 +18,8 @@ import { useWorkbenchState } from '../features/workbench/hooks/useWorkbenchState
 import { isImagePath, languageFromPath, statusLanguage } from '../features/workbench/utils/fileUtils.js';
 
 export default function WorkbenchPage() {
+  const [mobileExplorerOpen, setMobileExplorerOpen] = useState(false);
+
   const {
     expanded,
     activePath,
@@ -74,10 +76,25 @@ export default function WorkbenchPage() {
     githubUsername
   });
 
+  function handleOpenFile(path) {
+    openFile(path);
+    setMobileExplorerOpen(false);
+  }
+
+  function handleSelectOpenTab(path) {
+    selectOpenTab(path);
+    setMobileExplorerOpen(false);
+  }
+
+  function handleOpenGitHubRepoFile(repo, repoPath) {
+    githubData.openGitHubRepoFile(repo, repoPath);
+    setMobileExplorerOpen(false);
+  }
+
   function commitQuickOpenSelection() {
     const selected = quickOpenResults[quickOpenIndex] || quickOpenResults[0];
     if (!selected) return;
-    openFile(selected);
+    handleOpenFile(selected);
     closeQuickOpen();
   }
 
@@ -128,6 +145,17 @@ export default function WorkbenchPage() {
     setQuickOpenIndex(0);
   }, [quickOpenQuery, setQuickOpenIndex]);
 
+  useEffect(() => {
+    if (!mobileExplorerOpen) return undefined;
+
+    function onKeyDown(event) {
+      if (event.key === 'Escape') setMobileExplorerOpen(false);
+    }
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [mobileExplorerOpen]);
+
   return (
     <main className={`githubdev-page theme-${theme}`}>
       <div className="githubdev-app">
@@ -143,10 +171,10 @@ export default function WorkbenchPage() {
             tree={tree}
             expanded={expanded}
             onToggleFolder={toggleFolder}
-            onOpenFile={openFile}
+            onOpenFile={handleOpenFile}
             activePath={activePath}
             openTabs={openTabs}
-            onSelectOpenTab={selectOpenTab}
+            onSelectOpenTab={handleSelectOpenTab}
             onCloseTab={closeTab}
             onCloseAllTabs={closeAllTabs}
             githubLoading={githubData.githubLoading}
@@ -158,7 +186,7 @@ export default function WorkbenchPage() {
             repoTreeError={githubData.repoTreeError}
             repoTrees={githubData.repoTrees}
             onToggleRepo={githubData.toggleRepo}
-            onOpenGitHubRepoFile={githubData.openGitHubRepoFile}
+            onOpenGitHubRepoFile={handleOpenGitHubRepoFile}
           />
 
           <EditorPane
@@ -182,6 +210,65 @@ export default function WorkbenchPage() {
 
         <StatusBar language={statusLanguage(activePath)} cursor={cursor} />
 
+        <button
+          type="button"
+          className="mobile-files-fab"
+          aria-label="Open file explorer"
+          aria-controls="mobile-file-explorer"
+          aria-expanded={mobileExplorerOpen}
+          onClick={() => setMobileExplorerOpen(true)}
+        >
+          <span className="codicon codicon-files" aria-hidden="true" />
+          Files
+        </button>
+
+        {mobileExplorerOpen && (
+          <div className="mobile-explorer-overlay" onClick={() => setMobileExplorerOpen(false)}>
+            <section
+              id="mobile-file-explorer"
+              className="mobile-explorer-sheet"
+              role="dialog"
+              aria-modal="true"
+              aria-label="File explorer"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <header className="mobile-explorer-header">
+                <strong>Files</strong>
+                <button
+                  type="button"
+                  className="mobile-explorer-close"
+                  onClick={() => setMobileExplorerOpen(false)}
+                  aria-label="Close file explorer"
+                >
+                  ×
+                </button>
+              </header>
+              <Sidebar
+                className="sidebar sidebar-mobile"
+                tree={tree}
+                expanded={expanded}
+                onToggleFolder={toggleFolder}
+                onOpenFile={handleOpenFile}
+                activePath={activePath}
+                openTabs={openTabs}
+                onSelectOpenTab={handleSelectOpenTab}
+                onCloseTab={closeTab}
+                onCloseAllTabs={closeAllTabs}
+                githubLoading={githubData.githubLoading}
+                githubError={githubData.githubError}
+                githubRepos={githubData.githubRepos}
+                expandedRepos={githubData.expandedRepos}
+                loadingRepoReadme={githubData.loadingRepoReadme}
+                loadingRepoTree={githubData.loadingRepoTree}
+                repoTreeError={githubData.repoTreeError}
+                repoTrees={githubData.repoTrees}
+                onToggleRepo={githubData.toggleRepo}
+                onOpenGitHubRepoFile={handleOpenGitHubRepoFile}
+              />
+            </section>
+          </div>
+        )}
+
         <QuickOpenModal
           visible={quickOpenVisible}
           query={quickOpenQuery}
@@ -190,7 +277,7 @@ export default function WorkbenchPage() {
           results={quickOpenResults}
           onSetSelectedIndex={setQuickOpenIndex}
           onSelectPath={(path) => {
-            openFile(path);
+            handleOpenFile(path);
             closeQuickOpen();
           }}
           onClose={closeQuickOpen}
