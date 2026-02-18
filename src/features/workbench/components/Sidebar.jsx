@@ -33,47 +33,54 @@ export default function Sidebar({
   onSelectOpenTab,
   onCloseTab,
   onCloseAllTabs,
+  isTabPinned = () => false,
   githubLoading,
   githubError,
   githubRepos,
   expandedRepos,
-  loadingRepoReadme,
   loadingRepoTree,
   repoTreeError,
   repoTrees,
   onToggleRepo,
   onOpenGitHubRepoFile
 }) {
+  const hasClosableTabs = openTabs.some((path) => !isTabPinned(path));
+
   return (
     <aside className={className}>
       <div className="sidebar-section">
         <div className="sidebar-row">
           <p>OPEN EDITORS</p>
-          <button type="button" className="close-all-editors" onClick={onCloseAllTabs} disabled={!openTabs.length}>
+          <button type="button" className="close-all-editors" onClick={onCloseAllTabs} disabled={!hasClosableTabs}>
             Close All
           </button>
         </div>
         <ul className="open-editors">
           {openTabs.map((tabPath) => {
             const name = tabPath.split('/').pop();
+            const isPinned = isTabPinned(tabPath);
             return (
               <li key={`open-${tabPath}`}>
-                <div className={`open-editor-row ${activePath === tabPath ? 'active' : ''}`}>
+                <div className={`open-editor-row ${activePath === tabPath ? 'active' : ''} ${isPinned ? 'pinned' : ''}`}>
                   <button type="button" className="open-editor-link" onClick={() => onSelectOpenTab(tabPath)}>
                     <span className={iconClassForPath(tabPath)} />
                     <span className="open-editor-name">{name}</span>
                   </button>
-                  <button
-                    type="button"
-                    className="open-editor-close"
-                    aria-label={`Close ${name}`}
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      onCloseTab(tabPath);
-                    }}
-                  >
-                    ×
-                  </button>
+                  {isPinned ? (
+                    <span className="open-editor-pin codicon codicon-pinned" aria-hidden="true" />
+                  ) : (
+                    <button
+                      type="button"
+                      className="open-editor-close"
+                      aria-label={`Close ${name}`}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        onCloseTab(tabPath);
+                      }}
+                    >
+                      ×
+                    </button>
+                  )}
                 </div>
               </li>
             );
@@ -141,9 +148,7 @@ export default function Sidebar({
                   />
                   <span className="codicon codicon-repo" />
                   <span className="repo-name">{repo.name}</span>
-                  {(loadingRepoReadme[repo.name] || loadingRepoTree[repo.name]) && (
-                    <span className="repo-loading">...</span>
-                  )}
+                  {loadingRepoTree[repo.name] && <span className="repo-loading">...</span>}
                 </button>
                 {expandedRepos[repo.name] && (
                   <>

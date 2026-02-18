@@ -1,258 +1,156 @@
 // Workbench seed data and defaults.
 
+export const introTabPath = 'START_HERE.jsx';
+
 export const staticFileContents = {
-  'portfolio-site/README.md': `# mattmcguin.com
+  [introTabPath]: `// This tab is rendered as a React component in the editor.`,
+  'README.md': `# Personal Website Workspace
 
-Portfolio site focused on recent software work.
+This project is a VS Code-style portfolio that opens with a pinned story view.
 
-## About
-I build practical software systems that help teams ship faster.
-This portfolio is intentionally structured like a repository so the work feels tangible.
+## How to Navigate
+- Keep \`START_HERE.jsx\` open for the full founder + engineer narrative.
+- Open markdown files in \`products/\`, \`career/\`, and \`stack/\` for details.
+- Use \`Cmd/Ctrl+P\` to quick-open any file.
+`,
+  'career/overview.md': `# Founder to Full Stack Engineer
 
-## Current Focus
-- AI-assisted developer workflows
-- Production reliability and observability
-- UX systems for internal tools
-- Tooling that lowers onboarding friction
+I spent the last five years building and scaling products end-to-end.
 
-## Selected Projects
-### AI Prompt Ops Toolkit
-- Built reusable prompt macros for recurring workflows
-- Added evaluation checklists for safer production behavior
-- Standardized collaboration patterns across product teams
+## Highlights
+- Raised $6M from Alexis Ohanian and 776 Ventures.
+- Built three products: gm.xyz, joinperch.com, and perch.app.
+- Started as a solo full-stack engineer, then managed a team of 4 engineers.
+- Stayed deeply hands-on with day-to-day product and platform code.
+`,
+  'career/next-role.md': `# Next Role
 
-### Realtime Analytics Surface
-- Reworked event ingestion paths for lower latency
-- Added schema guardrails to reduce noisy data
-- Improved debugging with richer trace context
+I am looking for a Full Stack Engineering role where I can directly impact product outcomes.
 
-### Design Token Sync
-- Centralized token publishing and validation
-- Reduced drift between product surfaces
-- Improved release confidence for frontend teams
+## Ideal Environment
+- Fast shipping culture with strong technical standards.
+- Teammates with deep product and engineering experience.
+- High ownership and close customer feedback loops.
 
-## Public Repositories
-### prompt-ops-toolkit
-- Command templates and operator runbooks
-- Prompt evaluation guidance
-- Lightweight scripts for local testing
+## Location
+- Based in NYC.
+- Prefer NYC-based roles.
+- Open to relocation for the right opportunity.
+`,
+  'products/gm.xyz.md': `# gm.xyz
 
-### ui-token-sync
-- Schema validation and release automation
-- Multi-app distribution support
-- Change visibility via CI annotations
+Decentralized crypto social network with Reddit-style communities and chat.
 
-### fast-insight-pipeline
-- Query planning improvements
-- Throughput and storage optimizations
-- Data lifecycle hygiene and retention safeguards
+## What We Built
+- Ethereum wallet auth (Sign in with wallet).
+- Token-gated communities with custom access requirements.
+- Forum and chat communication modes in one product.
 
-## Working Principles
-1. Ship small and iterate with real feedback.
-2. Make tradeoffs explicit in code and docs.
-3. Optimize for maintainability over novelty.
-4. Prefer clear ownership boundaries.
-5. Leave systems easier to operate than before.
+## Outcome
+- ~50,000 signups.
+- ~2,000 MAUs.
+- Competed with Farcaster and Lens in the same emerging category.
+`,
+  'products/joinperch.com.md': `# joinperch.com
 
-## Project Log 2026
-### January
-- Shipped first pass of prompt quality checks
-- Added onboarding docs for internal contributors
-- Benchmarked analytics query performance baselines
+Creator AMA + knowledge repository platform.
 
-### February
-- Reduced dashboard latency on key views
-- Added audit events for command-level visibility
-- Published clearer architecture decision records
+## What We Built
+- Creator Q&A workflows to build searchable knowledge backlogs.
+- A deduplication layer for recurring audience questions.
+- Paid subscription tiers for monetization.
 
-### March
-- Improved release scripting and rollback process
-- Aligned token naming conventions across apps
-- Added safeguards for edge-case data payloads
+## Outcome
+- 1,000+ creators onboarded.
+- 100,000 unique users reading and asking questions.
+- Product remains available today.
+`,
+  'products/perch.app.md': `# perch.app (Perch Reader)
 
-### April
-- Reworked CI caching for more stable build times
-- Tightened API error handling and logging
-- Improved issue triage process for faster follow-up
+Writing aggregation platform: "Spotify for reading."
 
-### May
-- Streamlined local setup scripts for new developers
-- Added health scorecard for repository maintenance
-- Simplified stale dependency review process
+## What We Built
+- Aggregation across personal blogs, RSS, Substack, Beehiiv, and X.
+- Web and mobile experiences for long-form reading.
+- Ranking, curation, and feed quality workflows.
 
-### June
-- Integrated quality checks into pre-merge flow
-- Refined docs for debugging incident timelines
-- Improved deployment visibility for stakeholders
+## Context + Outcome
+- Built as the largest venture-scale opportunity in our roadmap.
+- Still available on web and app stores.
+- We wound down after paywalls increased and supply became increasingly gated.
+`,
+  'stack/technologies.md': `# Technical Stack
 
-### July
-- Added runbooks for recurring support workflows
-- Consolidated internal templates for consistency
-- Reduced ambiguity in ownership handoffs
+## Core Product Stack
+- TypeScript
+- React (web)
+- React Native + Expo (mobile)
+- Express (backend)
+- Postgres + Supabase
 
-### August
-- Expanded test coverage for core user paths
-- Improved design review handoff protocol
-- Hardened analytics ingestion against malformed events
+## Infrastructure and Platform
+- AWS (RDS, EC2, Route53, Secrets Manager, ECS)
+- GCP
+- Railway
+- Qovery
+- Hetzner
+- Vercel
 
-### September
-- Added release-notes automation helper
-- Refined backlog slicing strategy for weekly cadence
-- Improved instrumentation naming consistency
-
-### October
-- Tightened rate-limit handling across services
-- Improved snapshot performance for large datasets
-- Documented fallback strategies for critical workflows
-
-### November
-- Reduced noisy alerting by tuning thresholds
-- Added examples for common extension points
-- Clarified repository contribution model
-
-### December
-- Wrapped year-end reliability improvements
-- Finalized migration notes for legacy modules
-- Published annual engineering learnings
-
-## Architecture Notes
-### Data Boundaries
-Define ownership early. Keep contracts explicit and versioned.
-
-### Reliability
-Design for observability first, then optimize bottlenecks with measurement.
-
-### Frontend Systems
-Treat design tokens and component APIs as product surfaces.
-
-### Developer Experience
-If setup is hard, contribution velocity drops. Optimize the first hour.
-
-## Learning Backlog
-- Better long-term maintainability metrics
-- Faster root-cause workflows for incidents
-- Improved knowledge transfer patterns
-- Lightweight performance budgets for new features
-- Automated quality signals for pull requests
-
-## Next Experiments
-- Context-aware code generation prompts
-- Auto-suggested runbooks from issue clusters
-- Better repository maps for new contributors
-- Structured weekly engineering notes
-
-## Contact
-- GitHub: @mattmcguin
-- Website: mattmcguin.com
-- Focus: pragmatic engineering systems
-
-## Appendix A: Notes
-- This file is intentionally long to test scroll behavior.
-- Preview mode should remain readable at long lengths.
-- Markdown mode should keep line numbers aligned.
-- Tabs and side panels should stay usable while scrolling.
-
-## Appendix B: Additional Notes
-- Keep interactions predictable.
-- Preserve keyboard-friendly navigation patterns.
-- Ensure responsive behavior on smaller screens.
-- Prefer accessible contrast across all interface states.
-
-## Appendix C: Deep Dive Topics
-- Prompt evaluation lifecycle
-- Incident communication standards
-- Internal tooling prioritization
-- Documentation upkeep model
-- Sustainable release cadence
-
-## End
-Thanks for reading this intentionally long README.`,
-  'portfolio-site/projects/ai-ops.md': `## AI Prompt Ops Toolkit
-
-- Built reusable prompt command macros
-- Added evaluation checklists for reliability
-- Cut iteration loops for product teams`,
-  'portfolio-site/projects/analytics-surface.md': `## Realtime Analytics Surface
-
-- Event ingestion guardrails
-- Query latency optimization
-- Better debugging traces for production`,
-  'portfolio-site/src/app.tsx': `export function AppShell() {
-  return {
-    nowBuilding: 'github.dev-inspired portfolio',
-    focus: ['project narrative', 'ship cadence', 'public repos']
-  };
-}`,
-  'public-repos/prompt-ops-toolkit/README.md': `### prompt-ops-toolkit
-
-Reusable command templates, evaluation scripts,
-and deployment notes for prompt workflows.`,
-  'public-repos/ui-token-sync/README.md': `### ui-token-sync
-
-Design token publishing pipeline with checks:
-- schema validation
-- semver release gates
-- multi-app sync automation`,
-  'public-repos/fast-insight-pipeline/README.md': `### fast-insight-pipeline
-
-Streaming events and query planner improvements
-to reduce dashboard load times and cost.`
+## Search + AI Integrations
+- Elasticsearch
+- ElevenLabs TTS
+- AI SDK
+- Anthropic
+- OpenAI
+- Gemini
+`,
+  'test/test.js': `export function runTest() {
+  return 'Sidebar test file loaded.';
+}
+`
 };
 
 export const tree = [
   {
+    type: 'file',
+    name: 'START_HERE.jsx',
+    path: introTabPath
+  },
+  {
+    type: 'file',
+    name: 'README.md',
+    path: 'README.md'
+  },
+  {
     type: 'folder',
-    name: 'portfolio-site',
+    name: 'products',
     children: [
-      { type: 'file', name: 'README.md', path: 'portfolio-site/README.md' },
-      {
-        type: 'folder',
-        name: 'projects',
-        children: [
-          { type: 'file', name: 'ai-ops.md', path: 'portfolio-site/projects/ai-ops.md' },
-          {
-            type: 'file',
-            name: 'analytics-surface.md',
-            path: 'portfolio-site/projects/analytics-surface.md'
-          }
-        ]
-      },
-      {
-        type: 'folder',
-        name: 'src',
-        children: [{ type: 'file', name: 'app.tsx', path: 'portfolio-site/src/app.tsx' }]
-      }
+      { type: 'file', name: 'gm.xyz.md', path: 'products/gm.xyz.md' },
+      { type: 'file', name: 'joinperch.com.md', path: 'products/joinperch.com.md' },
+      { type: 'file', name: 'perch.app.md', path: 'products/perch.app.md' }
     ]
   },
   {
     type: 'folder',
-    name: 'public-repos',
+    name: 'career',
     children: [
-      {
-        type: 'folder',
-        name: 'prompt-ops-toolkit',
-        children: [{ type: 'file', name: 'README.md', path: 'public-repos/prompt-ops-toolkit/README.md' }]
-      },
-      {
-        type: 'folder',
-        name: 'ui-token-sync',
-        children: [{ type: 'file', name: 'README.md', path: 'public-repos/ui-token-sync/README.md' }]
-      },
-      {
-        type: 'folder',
-        name: 'fast-insight-pipeline',
-        children: [{ type: 'file', name: 'README.md', path: 'public-repos/fast-insight-pipeline/README.md' }]
-      }
+      { type: 'file', name: 'overview.md', path: 'career/overview.md' },
+      { type: 'file', name: 'next-role.md', path: 'career/next-role.md' }
     ]
+  },
+  {
+    type: 'folder',
+    name: 'stack',
+    children: [{ type: 'file', name: 'technologies.md', path: 'stack/technologies.md' }]
+  },
+  {
+    type: 'folder',
+    name: 'test',
+    children: [{ type: 'file', name: 'test.js', path: 'test/test.js' }]
   }
 ];
 
-export const defaultOpen = new Set([
-  'portfolio-site',
-  'portfolio-site/projects',
-  'portfolio-site/src',
-  'public-repos',
-  'public-repos/prompt-ops-toolkit'
-]);
-export const defaultFile = 'portfolio-site/README.md';
+export const defaultOpen = new Set(['products', 'career', 'stack', 'test']);
+export const defaultFile = introTabPath;
+export const pinnedTabPaths = [introTabPath];
 export const githubUsername = import.meta.env.VITE_GITHUB_USERNAME || 'mattmcguin';

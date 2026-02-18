@@ -3,12 +3,15 @@ import ActivityBar from '../features/workbench/components/ActivityBar.jsx';
 import EditorPane from '../features/workbench/components/EditorPane.jsx';
 import QuickOpenModal from '../features/workbench/components/QuickOpenModal.jsx';
 import Sidebar from '../features/workbench/components/Sidebar.jsx';
+import StoryLanding from '../features/workbench/components/StoryLanding.jsx';
 import StatusBar from '../features/workbench/components/StatusBar.jsx';
 import TopBar from '../features/workbench/components/TopBar.jsx';
 import {
   defaultFile,
   defaultOpen,
   githubUsername,
+  introTabPath,
+  pinnedTabPaths,
   staticFileContents,
   tree
 } from '../features/workbench/constants/workbenchData.js';
@@ -24,7 +27,6 @@ export default function WorkbenchPage() {
     expanded,
     activePath,
     openTabs,
-    viewMode,
     sidebarCollapsed,
     theme,
     quickOpenVisible,
@@ -32,7 +34,6 @@ export default function WorkbenchPage() {
     quickOpenIndex,
     cursorByPath,
     cursor,
-    setViewMode,
     setSidebarCollapsed,
     setTheme,
     setQuickOpenQuery,
@@ -46,13 +47,14 @@ export default function WorkbenchPage() {
     cycleTabs,
     openQuickOpen,
     closeQuickOpen
-  } = useWorkbenchState({ defaultFile, defaultOpen });
+  } = useWorkbenchState({ defaultFile, defaultOpen, pinnedTabPaths });
 
   const githubData = useGitHubData({ githubUsername, openFile });
   const dynamicFiles = githubData.dynamicFiles;
   const imageFiles = githubData.imageFileMap;
 
   const allFiles = useMemo(() => ({ ...staticFileContents, ...dynamicFiles }), [dynamicFiles]);
+  const pinnedTabSet = useMemo(() => new Set(pinnedTabPaths), []);
   const allFilePaths = useMemo(
     () => [...new Set([...Object.keys(allFiles), ...Object.keys(imageFiles)])],
     [allFiles, imageFiles]
@@ -72,7 +74,6 @@ export default function WorkbenchPage() {
     activePath,
     allFiles,
     isMarkdown,
-    viewMode,
     githubUsername
   });
 
@@ -90,6 +91,9 @@ export default function WorkbenchPage() {
     githubData.openGitHubRepoFile(repo, repoPath);
     setMobileExplorerOpen(false);
   }
+
+  const customTabContent =
+    activePath === introTabPath ? <StoryLanding onOpenFile={handleOpenFile} /> : null;
 
   function commitQuickOpenSelection() {
     const selected = quickOpenResults[quickOpenIndex] || quickOpenResults[0];
@@ -110,10 +114,6 @@ export default function WorkbenchPage() {
       }));
     });
   }
-
-  useEffect(() => {
-    setViewMode(isMarkdown ? 'preview' : 'code');
-  }, [activePath, isMarkdown, setViewMode]);
 
   useEffect(() => {
     function onKeyDown(event) {
@@ -177,11 +177,11 @@ export default function WorkbenchPage() {
             onSelectOpenTab={handleSelectOpenTab}
             onCloseTab={closeTab}
             onCloseAllTabs={closeAllTabs}
+            isTabPinned={(path) => pinnedTabSet.has(path)}
             githubLoading={githubData.githubLoading}
             githubError={githubData.githubError}
             githubRepos={githubData.githubRepos}
             expandedRepos={githubData.expandedRepos}
-            loadingRepoReadme={githubData.loadingRepoReadme}
             loadingRepoTree={githubData.loadingRepoTree}
             repoTreeError={githubData.repoTreeError}
             repoTrees={githubData.repoTrees}
@@ -195,8 +195,6 @@ export default function WorkbenchPage() {
             onSelectOpenTab={selectOpenTab}
             onCloseTab={closeTab}
             isMarkdown={isMarkdown}
-            viewMode={viewMode}
-            onSetViewMode={setViewMode}
             isImage={isImage}
             imageFiles={imageFiles}
             allFiles={allFiles}
@@ -205,6 +203,8 @@ export default function WorkbenchPage() {
             onEditorMount={handleEditorMount}
             renderedMarkdown={renderedMarkdown}
             renderingMarkdown={renderingMarkdown}
+            customTabContent={customTabContent}
+            isTabPinned={(path) => pinnedTabSet.has(path)}
           />
         </div>
 
@@ -222,52 +222,54 @@ export default function WorkbenchPage() {
           Files
         </button>
 
-        {mobileExplorerOpen && (
-          <div className="mobile-explorer-overlay" onClick={() => setMobileExplorerOpen(false)}>
-            <section
-              id="mobile-file-explorer"
-              className="mobile-explorer-sheet"
-              role="dialog"
-              aria-modal="true"
-              aria-label="File explorer"
-              onClick={(event) => event.stopPropagation()}
-            >
-              <header className="mobile-explorer-header">
-                <strong>Files</strong>
-                <button
-                  type="button"
-                  className="mobile-explorer-close"
-                  onClick={() => setMobileExplorerOpen(false)}
-                  aria-label="Close file explorer"
-                >
-                  ×
-                </button>
-              </header>
-              <Sidebar
-                className="sidebar sidebar-mobile"
-                tree={tree}
-                expanded={expanded}
-                onToggleFolder={toggleFolder}
-                onOpenFile={handleOpenFile}
-                activePath={activePath}
-                openTabs={openTabs}
-                onSelectOpenTab={handleSelectOpenTab}
-                onCloseTab={closeTab}
-                onCloseAllTabs={closeAllTabs}
-                githubLoading={githubData.githubLoading}
-                githubError={githubData.githubError}
-                githubRepos={githubData.githubRepos}
-                expandedRepos={githubData.expandedRepos}
-                loadingRepoReadme={githubData.loadingRepoReadme}
-                loadingRepoTree={githubData.loadingRepoTree}
-                repoTreeError={githubData.repoTreeError}
-                repoTrees={githubData.repoTrees}
-                onToggleRepo={githubData.toggleRepo}
-                onOpenGitHubRepoFile={handleOpenGitHubRepoFile}
-              />
-            </section>
-          </div>
-        )}
+        <div
+          className={`mobile-explorer-overlay ${mobileExplorerOpen ? 'open' : ''}`}
+          aria-hidden={!mobileExplorerOpen}
+          onClick={() => setMobileExplorerOpen(false)}
+        >
+          <section
+            id="mobile-file-explorer"
+            className="mobile-explorer-sheet"
+            role="dialog"
+            aria-modal="true"
+            aria-label="File explorer"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <header className="mobile-explorer-header">
+              <strong>Files</strong>
+              <button
+                type="button"
+                className="mobile-explorer-close"
+                onClick={() => setMobileExplorerOpen(false)}
+                aria-label="Close file explorer"
+              >
+                ×
+              </button>
+            </header>
+            <Sidebar
+              className="sidebar sidebar-mobile"
+              tree={tree}
+              expanded={expanded}
+              onToggleFolder={toggleFolder}
+              onOpenFile={handleOpenFile}
+              activePath={activePath}
+              openTabs={openTabs}
+              onSelectOpenTab={handleSelectOpenTab}
+              onCloseTab={closeTab}
+              onCloseAllTabs={closeAllTabs}
+              isTabPinned={(path) => pinnedTabSet.has(path)}
+              githubLoading={githubData.githubLoading}
+              githubError={githubData.githubError}
+              githubRepos={githubData.githubRepos}
+              expandedRepos={githubData.expandedRepos}
+              loadingRepoTree={githubData.loadingRepoTree}
+              repoTreeError={githubData.repoTreeError}
+              repoTrees={githubData.repoTrees}
+              onToggleRepo={githubData.toggleRepo}
+              onOpenGitHubRepoFile={handleOpenGitHubRepoFile}
+            />
+          </section>
+        </div>
 
         <QuickOpenModal
           visible={quickOpenVisible}

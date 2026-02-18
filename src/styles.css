@@ -395,6 +395,18 @@ button {
   color: var(--gh-text);
 }
 
+.open-editor-pin {
+  color: var(--gh-muted);
+  width: 22px;
+  height: 22px;
+  margin-left: auto;
+  margin-right: 0.35rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+}
+
 .open-editor-link:hover {
   background: color-mix(in srgb, var(--gh-border) 75%, transparent);
 }
@@ -465,6 +477,10 @@ button {
   background: var(--gh-editor);
 }
 
+.tab.pinned {
+  min-width: 170px;
+}
+
 .tab-open {
   flex: 1;
   border: 0;
@@ -496,6 +512,17 @@ button {
   color: var(--gh-text);
 }
 
+.tab-pin {
+  color: var(--gh-muted);
+  width: 22px;
+  height: 22px;
+  margin-right: 0.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+}
+
 .editor-header {
   border-bottom: 1px solid var(--gh-border);
   color: var(--gh-muted);
@@ -507,34 +534,17 @@ button {
   align-items: center;
 }
 
-.md-toggle {
-  display: inline-flex;
-  border: 1px solid var(--gh-border);
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.md-toggle button {
-  border: 0;
-  background: color-mix(in srgb, var(--gh-border) 50%, transparent);
-  color: var(--gh-muted);
-  padding: 0.18rem 0.45rem;
-  font-size: 0.68rem;
-  cursor: pointer;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
-}
-
-.md-toggle button.active {
-  background: var(--gh-active);
-  color: #ffffff;
-}
-
 .editor-code {
   min-height: 0;
 }
 
 .editor-code.preview-mode {
   display: block;
+}
+
+.custom-tab-content {
+  height: 100%;
+  overflow: auto;
 }
 
 .empty-editor {
@@ -620,6 +630,220 @@ button {
 .md-loading {
   color: var(--gh-muted);
   font-size: 0.8rem;
+}
+
+.story-landing {
+  min-height: 100%;
+  padding: 1.35rem 1.5rem 1.75rem;
+  background:
+    radial-gradient(circle at 15% -10%, rgba(59, 130, 246, 0.22), transparent 30%),
+    radial-gradient(circle at 88% 0%, rgba(16, 185, 129, 0.18), transparent 32%),
+    var(--gh-editor);
+  display: grid;
+  gap: 1rem;
+}
+
+.story-panel {
+  border: 1px solid var(--gh-border);
+  background: color-mix(in srgb, var(--gh-top) 84%, transparent);
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.story-panel h2,
+.story-stack-card h3 {
+  margin: 0 0 0.5rem;
+  color: #f0f6fc;
+  font-size: 0.95rem;
+}
+
+.githubdev-page.theme-light .story-panel h2,
+.githubdev-page.theme-light .story-stack-card h3 {
+  color: var(--gh-text);
+}
+
+.story-hero {
+  border: 1px solid var(--gh-border);
+  background: linear-gradient(130deg, color-mix(in srgb, var(--gh-top) 86%, transparent), rgba(56, 139, 253, 0.12));
+  border-radius: 12px;
+  padding: 1.1rem 1.2rem;
+}
+
+.story-eyebrow {
+  margin: 0;
+  color: #6ea8fe;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.65rem;
+  font-weight: 600;
+}
+
+.story-hero h1 {
+  margin: 0.35rem 0 0.45rem;
+  font-size: clamp(1.35rem, 2.8vw, 1.95rem);
+}
+
+.story-lede {
+  margin: 0;
+  color: var(--gh-text);
+  max-width: 70ch;
+  font-size: 0.95rem;
+}
+
+.story-external-links {
+  margin-top: 0.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.story-external-links a {
+  border: 1px solid var(--gh-border);
+  background: color-mix(in srgb, var(--gh-top) 78%, transparent);
+  color: #79c0ff;
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 0.34rem 0.62rem;
+  font-size: 0.73rem;
+}
+
+.story-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0.65rem;
+}
+
+.story-stat-card {
+  border: 1px solid var(--gh-border);
+  background: color-mix(in srgb, var(--gh-top) 82%, transparent);
+  border-radius: 8px;
+  padding: 0.7rem;
+}
+
+.story-stat-card p {
+  margin: 0;
+  color: var(--gh-muted);
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.story-stat-card h2 {
+  margin: 0.35rem 0 0.2rem;
+  font-size: 1.22rem;
+}
+
+.story-stat-card span {
+  color: var(--gh-muted);
+  font-size: 0.74rem;
+}
+
+.story-products {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.story-product-card {
+  border: 1px solid var(--gh-border);
+  background: color-mix(in srgb, var(--gh-top) 78%, transparent);
+  border-radius: 8px;
+  padding: 0.72rem 0.78rem;
+}
+
+.story-product-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.65rem;
+}
+
+.story-product-top a {
+  color: #79c0ff;
+  text-decoration: none;
+  font-size: 0.79rem;
+}
+
+.story-product-top a:first-child {
+  color: #f0f6fc;
+  font-weight: 600;
+  font-size: 0.84rem;
+}
+
+.githubdev-page.theme-light .story-product-top a:first-child {
+  color: var(--gh-text);
+}
+
+.story-product-card p {
+  margin: 0.45rem 0 0.35rem;
+  font-size: 0.83rem;
+}
+
+.story-product-card span {
+  color: var(--gh-muted);
+  font-size: 0.76rem;
+}
+
+.story-role-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.75rem;
+}
+
+.story-role-panel p {
+  margin: 0.45rem 0 0;
+  font-size: 0.82rem;
+}
+
+.story-stack-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.6rem;
+}
+
+.story-stack-card {
+  border: 1px solid var(--gh-border);
+  background: color-mix(in srgb, var(--gh-top) 80%, transparent);
+  border-radius: 8px;
+  padding: 0.72rem;
+}
+
+.story-stack-card ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.32rem;
+}
+
+.story-stack-card li {
+  font-size: 0.72rem;
+  color: var(--gh-text);
+  border: 1px solid var(--gh-border);
+  border-radius: 999px;
+  padding: 0.18rem 0.45rem;
+  background: color-mix(in srgb, var(--gh-bg) 74%, transparent);
+}
+
+.story-file-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.story-file-links a {
+  color: #79c0ff;
+  border: 1px dashed color-mix(in srgb, var(--gh-active) 70%, var(--gh-border));
+  border-radius: 8px;
+  padding: 0.35rem 0.56rem;
+  text-decoration: none;
+  font-size: 0.76rem;
+}
+
+.story-file-links a:hover,
+.story-external-links a:hover,
+.story-product-top a:hover {
+  text-decoration: underline;
 }
 
 .status-bar {
@@ -709,23 +933,53 @@ button {
   display: none;
 }
 
+.mobile-explorer-overlay {
+  display: none;
+}
+
 @media (max-width: 900px) {
+  .githubdev-app {
+    grid-template-rows: auto 1fr 24px;
+  }
+
   .gh-topbar {
     height: auto;
     padding: 0.45rem 0;
   }
 
   .gh-topbar-inner {
-    grid-template-columns: 1fr;
-    gap: 0.45rem;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'left right'
+      'command command';
+    gap: 0.45rem 0.65rem;
+  }
+
+  .gh-left {
+    grid-area: left;
+    min-width: 0;
+  }
+
+  .gh-repo {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .gh-right {
+    grid-area: right;
   }
 
   .gh-command {
+    grid-area: command;
     width: 100%;
   }
 
   .workbench {
-    grid-template-columns: 42px 1fr;
+    grid-template-columns: 1fr;
+  }
+
+  .activity-bar {
+    display: none;
   }
 
   .sidebar {
@@ -733,11 +987,19 @@ button {
   }
 
   .workbench.sidebar-collapsed {
-    grid-template-columns: 42px 1fr;
+    grid-template-columns: 1fr;
   }
 
   .quick-open-overlay {
     padding-top: 56px;
+  }
+
+  .story-landing {
+    padding: 1rem 0.9rem 1.1rem;
+  }
+
+  .story-panel {
+    padding: 0.8rem;
   }
 
   .mobile-files-fab {
@@ -766,6 +1028,17 @@ button {
     z-index: 25;
     display: flex;
     align-items: flex-end;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 220ms ease, visibility 0s linear 220ms;
+  }
+
+  .mobile-explorer-overlay.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 220ms ease;
   }
 
   .mobile-explorer-sheet {
@@ -778,6 +1051,15 @@ button {
     overflow: hidden;
     display: grid;
     grid-template-rows: 46px 1fr;
+    transform: translateY(calc(100% + 24px));
+    opacity: 0.98;
+    transition: transform 250ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 220ms ease;
+    will-change: transform;
+  }
+
+  .mobile-explorer-overlay.open .mobile-explorer-sheet {
+    transform: translateY(0);
+    opacity: 1;
   }
 
   .mobile-explorer-header {

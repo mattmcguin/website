@@ -1,10 +1,12 @@
 import { useState } from 'react';
 
-export function useWorkbenchState({ defaultFile, defaultOpen }) {
+export function useWorkbenchState({ defaultFile, defaultOpen, pinnedTabPaths = [] }) {
+  const pinnedTabs = new Set(pinnedTabPaths);
+  const initialTabs = Array.from(new Set([...pinnedTabPaths, defaultFile]));
+
   const [expanded, setExpanded] = useState(new Set(defaultOpen));
   const [activePath, setActivePath] = useState(defaultFile);
-  const [openTabs, setOpenTabs] = useState([defaultFile]);
-  const [viewMode, setViewMode] = useState('preview');
+  const [openTabs, setOpenTabs] = useState(initialTabs);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [theme, setTheme] = useState('dark');
   const [quickOpenVisible, setQuickOpenVisible] = useState(false);
@@ -44,10 +46,12 @@ export function useWorkbenchState({ defaultFile, defaultOpen }) {
   }
 
   function closeTab(path) {
+    if (pinnedTabs.has(path)) return;
+
     setOpenTabs((current) => {
       const next = current.filter((tab) => tab !== path);
       if (path === activePath) {
-        const fallback = next[next.length - 1] || '';
+        const fallback = next[next.length - 1] || pinnedTabPaths[0] || '';
         setActivePath(fallback);
       }
       return next;
@@ -55,8 +59,8 @@ export function useWorkbenchState({ defaultFile, defaultOpen }) {
   }
 
   function closeAllTabs() {
-    setOpenTabs([]);
-    setActivePath('');
+    setOpenTabs((current) => current.filter((tab) => pinnedTabs.has(tab)));
+    setActivePath(pinnedTabPaths[0] || '');
   }
 
   function cycleTabs(direction) {
@@ -88,7 +92,6 @@ export function useWorkbenchState({ defaultFile, defaultOpen }) {
     expanded,
     activePath,
     openTabs,
-    viewMode,
     sidebarCollapsed,
     theme,
     quickOpenVisible,
@@ -96,7 +99,6 @@ export function useWorkbenchState({ defaultFile, defaultOpen }) {
     quickOpenIndex,
     cursorByPath,
     cursor,
-    setViewMode,
     setSidebarCollapsed,
     setTheme,
     setQuickOpenQuery,

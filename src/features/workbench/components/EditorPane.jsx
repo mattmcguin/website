@@ -7,8 +7,6 @@ export default function EditorPane({
   onSelectOpenTab,
   onCloseTab,
   isMarkdown,
-  viewMode,
-  onSetViewMode,
   isImage,
   imageFiles,
   allFiles,
@@ -16,23 +14,51 @@ export default function EditorPane({
   theme,
   onEditorMount,
   renderedMarkdown,
-  renderingMarkdown
+  renderingMarkdown,
+  customTabContent,
+  isTabPinned = () => false
 }) {
+  const showMarkdownPreview = Boolean(activePath) && isMarkdown;
+
+  function handleMarkdownLinkClick(event) {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
+
+    const link = target.closest('a');
+    if (!link) return;
+
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#')) return;
+
+    event.preventDefault();
+    window.open(link.href, '_blank', 'noopener,noreferrer');
+  }
+
   return (
     <section className="editor-pane">
       <div className="tab-strip">
         {openTabs.map((tabPath) => {
           const tabName = tabPath.split('/').pop();
           const isActive = activePath === tabPath;
+          const isPinned = isTabPinned(tabPath);
           return (
-            <div key={tabPath} className={`tab ${isActive ? 'active' : ''}`}>
+            <div key={tabPath} className={`tab ${isActive ? 'active' : ''} ${isPinned ? 'pinned' : ''}`}>
               <button type="button" className="tab-open" onClick={() => onSelectOpenTab(tabPath)}>
                 <span className={iconClassForPath(tabPath)} />
                 {tabName}
               </button>
-              <button type="button" className="tab-close" onClick={() => onCloseTab(tabPath)} aria-label={`Close ${tabName}`}>
-                ×
-              </button>
+              {isPinned ? (
+                <span className="tab-pin codicon codicon-pinned" aria-hidden="true" />
+              ) : (
+                <button
+                  type="button"
+                  className="tab-close"
+                  onClick={() => onCloseTab(tabPath)}
+                  aria-label={`Close ${tabName}`}
+                >
+                  ×
+                </button>
+              )}
             </div>
           );
         })}
@@ -40,26 +66,18 @@ export default function EditorPane({
 
       <header className="editor-header">
         <span>{activePath || 'No file selected'}</span>
-        {isMarkdown && (
-          <div className="md-toggle" role="tablist" aria-label="Markdown view">
-            <button type="button" className={viewMode === 'preview' ? 'active' : ''} onClick={() => onSetViewMode('preview')}>
-              Preview
-            </button>
-            <button type="button" className={viewMode === 'code' ? 'active' : ''} onClick={() => onSetViewMode('code')}>
-              Markdown
-            </button>
-          </div>
-        )}
       </header>
 
-      <div className={`editor-code ${viewMode === 'preview' ? 'preview-mode' : ''}`}>
+      <div className={`editor-code ${showMarkdownPreview ? 'preview-mode' : ''}`}>
         {!activePath ? (
           <div className="empty-editor">Select a file from the explorer to open it.</div>
         ) : isImage && imageFiles[activePath] ? (
           <div className="image-preview">
             <img src={imageFiles[activePath]} alt={activePath} />
           </div>
-        ) : viewMode === 'code' ? (
+        ) : customTabContent ? (
+          <div className="custom-tab-content">{customTabContent}</div>
+        ) : !showMarkdownPreview ? (
           <Editor
             key={`${activePath}-${theme}`}
             value={allFiles[activePath] || ''}
@@ -76,7 +94,7 @@ export default function EditorPane({
             }}
           />
         ) : (
-          <div className="markdown-preview">
+          <div className="markdown-preview" onClick={handleMarkdownLinkClick}>
             {renderingMarkdown[activePath] ? (
               <p className="md-loading">Rendering with GitHub Markdown...</p>
             ) : (
