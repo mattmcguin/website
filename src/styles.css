@@ -321,6 +321,12 @@ button {
   padding: 0.1rem 0 0.35rem;
 }
 
+.repo-tree-inline ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 .tree-item {
   width: 100%;
   border: 0;
@@ -411,12 +417,22 @@ button {
   color: #6ea8fe;
 }
 
+.tree-chevron-spacer {
+  width: 14px;
+  display: inline-flex;
+  flex: 0 0 14px;
+}
+
 .tree-item.folder .codicon-folder {
   color: #e3b341;
 }
 
 .tree-item.folder .codicon-chevron-right,
 .tree-item.folder .codicon-chevron-down {
+  color: var(--gh-muted);
+}
+
+.tree-item.repo-root .codicon-repo {
   color: var(--gh-muted);
 }
 
