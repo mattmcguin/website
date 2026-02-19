@@ -3,9 +3,7 @@ export default function TopBar({ githubUsername, onOpenQuickOpen, theme, onSetTh
     <header className="gh-topbar">
       <div className="gh-topbar-inner">
         <div className="gh-left">
-          <span className="gh-mark" aria-hidden="true">
-            GH
-          </span>
+          <img src="https://prod.r2-perch.app/media/matt-mcguiness.png" alt="Matt McGuiness" className="gh-avatar" />
           <p className="gh-repo">{githubUsername} / personal-website</p>
         </div>
         <button className="gh-command" type="button" onClick={onOpenQuickOpen}>

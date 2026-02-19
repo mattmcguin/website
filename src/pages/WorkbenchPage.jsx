@@ -1,9 +1,10 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import ActivityBar from '../features/workbench/components/ActivityBar.jsx';
 import EditorPane from '../features/workbench/components/EditorPane.jsx';
 import QuickOpenModal from '../features/workbench/components/QuickOpenModal.jsx';
 import Sidebar from '../features/workbench/components/Sidebar.jsx';
-import StoryLanding from '../features/workbench/components/StoryLanding.jsx';
+import Welcome_0 from '../features/workbench/components/StoryLanding.jsx';
 import StatusBar from '../features/workbench/components/StatusBar.jsx';
 import TopBar from '../features/workbench/components/TopBar.jsx';
 import {
@@ -21,7 +22,12 @@ import { useWorkbenchState } from '../features/workbench/hooks/useWorkbenchState
 import { isImagePath, languageFromPath, statusLanguage } from '../features/workbench/utils/fileUtils.js';
 
 export default function WorkbenchPage() {
+  const githubSyncEnabled = true;
   const [mobileExplorerOpen, setMobileExplorerOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const syncingPathFromRouteRef = useRef(false);
+  const activePathRef = useRef('');
 
   const {
     expanded,
@@ -40,6 +46,7 @@ export default function WorkbenchPage() {
     setQuickOpenIndex,
     setCursorByPath,
     toggleFolder,
+    collapseAllFolders,
     openFile,
     selectOpenTab,
     closeTab,
@@ -49,7 +56,7 @@ export default function WorkbenchPage() {
     closeQuickOpen
   } = useWorkbenchState({ defaultFile, defaultOpen, pinnedTabPaths });
 
-  const githubData = useGitHubData({ githubUsername, openFile });
+  const githubData = useGitHubData({ githubUsername, openFile, enabled: githubSyncEnabled });
   const dynamicFiles = githubData.dynamicFiles;
   const imageFiles = githubData.imageFileMap;
 
@@ -63,6 +70,18 @@ export default function WorkbenchPage() {
   const isMarkdown = Boolean(activePath) && activePath.endsWith('.md');
   const isImage = isImagePath(activePath);
   const editorLanguage = languageFromPath(activePath);
+  const routeFileParam = useMemo(
+    () => new URLSearchParams(location.search).get('file') || '',
+    [location.search]
+  );
+  const routeFileIsValid = useMemo(
+    () => !routeFileParam || allFilePaths.includes(routeFileParam),
+    [routeFileParam, allFilePaths]
+  );
+  const resolvedRoutePath = useMemo(
+    () => (routeFileIsValid ? (routeFileParam || defaultFile) : defaultFile),
+    [routeFileIsValid, routeFileParam]
+  );
 
   const quickOpenResults = useMemo(() => {
     const query = quickOpenQuery.trim().toLowerCase();
@@ -77,23 +96,52 @@ export default function WorkbenchPage() {
     githubUsername
   });
 
+  useEffect(() => {
+    activePathRef.current = activePath;
+  }, [activePath]);
+
+  function buildSearchForPath(path) {
+    if (!path || path === defaultFile) return '';
+    const params = new URLSearchParams();
+    params.set('file', path);
+    return `?${params.toString()}`;
+  }
+
+  function pushPathToRoute(path, { replace = false } = {}) {
+    const nextSearch = buildSearchForPath(path);
+    if (location.search === nextSearch) return;
+    navigate({ pathname: '/', search: nextSearch }, { replace });
+  }
+
   function handleOpenFile(path) {
+    if (path && path !== activePathRef.current) {
+      syncingPathFromRouteRef.current = false;
+      pushPathToRoute(path, { replace: false });
+    }
     openFile(path);
     setMobileExplorerOpen(false);
   }
 
   function handleSelectOpenTab(path) {
+    if (path && path !== activePathRef.current) {
+      syncingPathFromRouteRef.current = false;
+      pushPathToRoute(path, { replace: false });
+    }
     selectOpenTab(path);
     setMobileExplorerOpen(false);
   }
 
   function handleOpenGitHubRepoFile(repo, repoPath) {
+    const routePath = `github/${repo.name}/${repoPath}`;
+    syncingPathFromRouteRef.current = false;
+    pushPathToRoute(routePath, { replace: false });
     githubData.openGitHubRepoFile(repo, repoPath);
     setMobileExplorerOpen(false);
   }
 
-  const customTabContent =
-    activePath === introTabPath ? <StoryLanding onOpenFile={handleOpenFile} /> : null;
+  const customTabContent = activePath === introTabPath
+    ? <Welcome_0 onOpenFile={handleOpenFile} />
+    : null;
 
   function commitQuickOpenSelection() {
     const selected = quickOpenResults[quickOpenIndex] || quickOpenResults[0];
@@ -156,6 +204,31 @@ export default function WorkbenchPage() {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [mobileExplorerOpen]);
 
+  useEffect(() => {
+    if (resolvedRoutePath === activePathRef.current) return;
+    syncingPathFromRouteRef.current = true;
+    openFile(resolvedRoutePath);
+  }, [resolvedRoutePath]);
+
+  useEffect(() => {
+    const normalizedActivePath = activePath || defaultFile;
+    if (syncingPathFromRouteRef.current) {
+      if (normalizedActivePath === resolvedRoutePath) {
+        syncingPathFromRouteRef.current = false;
+      }
+      return;
+    }
+
+    if (!routeFileIsValid) {
+      navigate({ pathname: '/', search: buildSearchForPath(normalizedActivePath) }, { replace: true });
+      return;
+    }
+
+    if (resolvedRoutePath === normalizedActivePath) return;
+
+    navigate({ pathname: '/', search: buildSearchForPath(normalizedActivePath) }, { replace: false });
+  }, [activePath, routeFileIsValid, resolvedRoutePath, navigate]);
+
   return (
     <main className={`githubdev-page theme-${theme}`}>
       <div className="githubdev-app">
@@ -171,6 +244,7 @@ export default function WorkbenchPage() {
             tree={tree}
             expanded={expanded}
             onToggleFolder={toggleFolder}
+            onCollapseAllFolders={collapseAllFolders}
             onOpenFile={handleOpenFile}
             activePath={activePath}
             openTabs={openTabs}
@@ -192,7 +266,7 @@ export default function WorkbenchPage() {
           <EditorPane
             openTabs={openTabs}
             activePath={activePath}
-            onSelectOpenTab={selectOpenTab}
+            onSelectOpenTab={handleSelectOpenTab}
             onCloseTab={closeTab}
             isMarkdown={isMarkdown}
             isImage={isImage}
@@ -251,6 +325,7 @@ export default function WorkbenchPage() {
               tree={tree}
               expanded={expanded}
               onToggleFolder={toggleFolder}
+              onCollapseAllFolders={collapseAllFolders}
               onOpenFile={handleOpenFile}
               activePath={activePath}
               openTabs={openTabs}

@@ -23,7 +23,19 @@ export function useWorkbenchState({ defaultFile, defaultOpen, pinnedTabPaths = [
     });
   }
 
+  function collapseAllFolders() {
+    setExpanded(new Set());
+  }
+
   function openFile(path) {
+    setExpanded((current) => {
+      const next = new Set(current);
+      const parts = path.split('/');
+      for (let index = 0; index < parts.length - 1; index += 1) {
+        next.add(parts.slice(0, index + 1).join('/'));
+      }
+      return next;
+    });
     setOpenTabs((current) => (current.includes(path) ? current : [...current, path]));
     setActivePath(path);
   }
@@ -107,6 +119,7 @@ export function useWorkbenchState({ defaultFile, defaultOpen, pinnedTabPaths = [
     setQuickOpenVisible,
     setActivePath,
     toggleFolder,
+    collapseAllFolders,
     openFile,
     revealFile,
     selectOpenTab,
