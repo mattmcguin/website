@@ -1,43 +1,17 @@
 // Workbench seed data and defaults.
 
-export const introTabPath = 'Welcome';
+export const introTabPath = "Welcome";
 
 export const staticFileContents = {
   [introTabPath]: `// Welcome tab — rendered as a custom React component.`,
-  'career/overview.md': `# Founder to Full Stack Engineer
+  "work/gm.xyz": `# ![gm.xyz logo](https://prod.r2-perch.com/media/gm.xyz.png) gm.xyz ([gm.xyz](https://gm.xyz))
 
-I spent the last five years building and scaling products end-to-end.
+  ![Total Users](https://img.shields.io/badge/Total%20Users-~30K-2ea043?style=for-the-badge) ![Role](https://img.shields.io/badge/Role-Co--Founder%20%2B%20CTO-6f42c1?style=for-the-badge)
 
-## Highlights
-- Raised $6M from Alexis Ohanian and 776 Ventures.
-- Built three products: gm.xyz, joinperch.com, and perch.app.
-- Started as a solo full-stack engineer, then managed a team of 4 engineers.
-- Stayed deeply hands-on with day-to-day product and platform code.
-`,
-  'career/next-role.md': `# Next Role
-
-I am looking for a Full Stack Engineering role where I can directly impact product outcomes.
-
-## Ideal Environment
-- Fast shipping culture with strong technical standards.
-- Teammates with deep product and engineering experience.
-- High ownership and close customer feedback loops.
-
-## Location
-- Based in NYC.
-- Prefer NYC-based roles.
-- Open to relocation for the right opportunity.
-`,
-  'products/gm.xyz.md': `# ![gm.xyz logo](https://prod.r2-perch.com/media/gm.xyz.png) gm.xyz ([gm.xyz](https://gm.xyz))
-
-Crypto-native social network for communities built around tokens, NFTs, and DAOs.
-
-![Total Users](https://img.shields.io/badge/Total%20Users-~30K-2ea043?style=for-the-badge)
-![MAU](https://img.shields.io/badge/MAU-~2K-1f6feb?style=for-the-badge)
-![Role](https://img.shields.io/badge/Role-Co--Founder%20%2B%20CTO-6f42c1?style=for-the-badge)
+  Crypto-native social network for communities built around tokens, NFTs, and DAOs.
 
 ## Product
-
+--------------------------------
 ### Positioning
 Designed as an asynchronous, organized alternative to high-volume Discord chat so communities could find the best content faster.
 
@@ -65,13 +39,10 @@ Designed as an asynchronous, organized alternative to high-volume Discord chat s
 - Validated demand for structured, asynchronous web3 community tooling
 - Reached meaningful early network activity in a highly competitive social category
 `,
-  'products/joinperch.com.md': `# ![Perch logo](https://prod.r2-perch.com/media/icon.png) Perch ([joinperch.com](https://joinperch.com))
+  "work/joinperch.com": `# ![Perch logo](https://prod.r2-perch.com/media/icon.png) Perch ([joinperch.com](https://joinperch.com))
+![Users](https://img.shields.io/badge/Users-~100K-2ea043?style=for-the-badge) ![Creators](https://img.shields.io/badge/Creators-1%2C000%2B-1f6feb?style=for-the-badge)
 
 Creator platform that turns audience questions into newsletters and SEO-friendly knowledge pages.
-
-![Total Users](https://img.shields.io/badge/Total%20Users-~100K-2ea043?style=for-the-badge)
-![Creators](https://img.shields.io/badge/Creators-1%2C000%2B-1f6feb?style=for-the-badge)
-![MAU](https://img.shields.io/badge/MAU-~5K-6f42c1?style=for-the-badge)
 
 ## Product
 
@@ -103,13 +74,10 @@ Built to help creators grow owned distribution and monetize expertise through pa
 - ~100K unique users reading and asking questions
 - Demonstrated that creator Q&A can function as both a growth and monetization engine
 `,
-  'products/perch.app.md': `# ![Perch Reader logo](https://prod.r2-perch.com/Avatar-03.png) Perch Reader ([perch.app](https://perch.app))
+  "work/perch.app": `# ![Perch Reader logo](https://prod.r2-perch.com/Avatar-03.png) Perch Reader ([perch.app](https://perch.app))
+![Users](https://img.shields.io/badge/Users-~20K-2ea043?style=for-the-badge) ![Publications](https://img.shields.io/badge/Publications-13K-1f6feb?style=for-the-badge) ![Articles](https://img.shields.io/badge/Articles-3.3M-6f42c1?style=for-the-badge)
 
 Free reading aggregator with AI chat and listening across the open web.
-
-![Total Users](https://img.shields.io/badge/Total%20Users-~20K-2ea043?style=for-the-badge)
-![MAU](https://img.shields.io/badge/MAU-~2.5K-1f6feb?style=for-the-badge)
-![Indexed Articles](https://img.shields.io/badge/Indexed%20Articles-3.3M-6f42c1?style=for-the-badge)
 
 ## Product
 
@@ -144,7 +112,7 @@ Built to make high-signal writing easier to discover and consume by unifying blo
 - Validated demand for a unified reading product that combines discovery and consumption
 - Improved retention through AI chat and unlimited listening for power users
 `,
-  'stack/technologies.md': `# Technical Stack
+  "personal/technologies.md": `# Technical Stack
 
 ## Core Product Stack
 - TypeScript
@@ -168,40 +136,39 @@ Built to make high-signal writing easier to discover and consume by unifying blo
 - Anthropic
 - OpenAI
 - Gemini
-`
+`,
 };
 
 export const tree = [
   {
-    type: 'file',
-    name: 'Welcome',
-    path: introTabPath
+    type: "file",
+    name: "Welcome",
+    path: introTabPath,
   },
   {
-    type: 'folder',
-    name: 'products',
+    type: "folder",
+    name: "work",
     children: [
-      { type: 'file', name: 'gm.xyz.md', path: 'products/gm.xyz.md' },
-      { type: 'file', name: 'joinperch.com.md', path: 'products/joinperch.com.md' },
-      { type: 'file', name: 'perch.app.md', path: 'products/perch.app.md' }
-    ]
+      { type: "file", name: "perch.app", path: "work/perch.app" },
+      { type: "file", name: "joinperch.com", path: "work/joinperch.com" },
+      { type: "file", name: "gm.xyz", path: "work/gm.xyz" },
+    ],
   },
   {
-    type: 'folder',
-    name: 'career',
+    type: "folder",
+    name: "personal",
     children: [
-      { type: 'file', name: 'overview.md', path: 'career/overview.md' },
-      { type: 'file', name: 'next-role.md', path: 'career/next-role.md' }
-    ]
+      {
+        type: "file",
+        name: "technologies.md",
+        path: "personal/technologies.md",
+      },
+    ],
   },
-  {
-    type: 'folder',
-    name: 'stack',
-    children: [{ type: 'file', name: 'technologies.md', path: 'stack/technologies.md' }]
-  }
 ];
 
 export const defaultOpen = new Set();
 export const defaultFile = introTabPath;
 export const pinnedTabPaths = [introTabPath];
-export const githubUsername = import.meta.env.VITE_GITHUB_USERNAME || 'mattmcguin';
+export const githubUsername =
+  import.meta.env.VITE_GITHUB_USERNAME || "mattmcguin";

@@ -1,4 +1,4 @@
-import { iconClassForPath } from '../utils/fileUtils.js';
+import FileIcon from './FileIcon.jsx';
 import { moveSidebarFocus } from '../utils/keyboardUtils.js';
 
 export default function TreeNode({
@@ -42,7 +42,7 @@ export default function TreeNode({
           onKeyDown={handleFileKeyDown}
         >
           {showChevronSpacer && <span className="tree-chevron-spacer" aria-hidden="true" />}
-          <span className={iconClassForPath(node.path)} aria-hidden="true" />
+          <FileIcon path={node.path} className="file-icon" />
           {node.name}
         </button>
       </li>

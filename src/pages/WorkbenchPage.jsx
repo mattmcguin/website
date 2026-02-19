@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ActivityBar from '../features/workbench/components/ActivityBar.jsx';
+import WelcomeTab from '../features/workbench/components/WelcomeTab.jsx';
 import EditorPane from '../features/workbench/components/EditorPane.jsx';
 import QuickOpenModal from '../features/workbench/components/QuickOpenModal.jsx';
 import Sidebar from '../features/workbench/components/Sidebar.jsx';
-import Welcome_0 from '../features/workbench/components/StoryLanding.jsx';
 import StatusBar from '../features/workbench/components/StatusBar.jsx';
 import TopBar from '../features/workbench/components/TopBar.jsx';
 import {
@@ -19,7 +19,7 @@ import {
 import { useGitHubData } from '../features/workbench/hooks/useGitHubData.js';
 import { useMarkdownPreview } from '../features/workbench/hooks/useMarkdownPreview.js';
 import { useWorkbenchState } from '../features/workbench/hooks/useWorkbenchState.js';
-import { isImagePath, languageFromPath, statusLanguage } from '../features/workbench/utils/fileUtils.js';
+import { isImagePath, isMarkdownPath, languageFromPath, statusLanguage } from '../features/workbench/utils/fileUtils.js';
 
 export default function WorkbenchPage() {
   const githubSyncEnabled = true;
@@ -67,7 +67,7 @@ export default function WorkbenchPage() {
     [allFiles, imageFiles]
   );
 
-  const isMarkdown = Boolean(activePath) && activePath.endsWith('.md');
+  const isMarkdown = isMarkdownPath(activePath);
   const isImage = isImagePath(activePath);
   const editorLanguage = languageFromPath(activePath);
   const routeFileParam = useMemo(
@@ -140,7 +140,7 @@ export default function WorkbenchPage() {
   }
 
   const customTabContent = activePath === introTabPath
-    ? <Welcome_0 onOpenFile={handleOpenFile} />
+    ? <WelcomeTab onOpenFile={handleOpenFile} />
     : null;
 
   function commitQuickOpenSelection() {

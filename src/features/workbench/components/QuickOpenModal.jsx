@@ -1,4 +1,4 @@
-import { iconClassForPath } from '../utils/fileUtils.js';
+import FileIcon from './FileIcon.jsx';
 
 export default function QuickOpenModal({
   visible,
@@ -51,7 +51,7 @@ export default function QuickOpenModal({
                 className={index === selectedIndex ? 'active' : ''}
                 onClick={() => onSelectPath(path)}
               >
-                <span className={iconClassForPath(path)} />
+                <FileIcon path={path} className="file-icon" />
                 {path}
               </button>
             </li>

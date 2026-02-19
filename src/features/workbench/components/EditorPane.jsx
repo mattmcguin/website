@@ -1,5 +1,5 @@
 import Editor from '@monaco-editor/react';
-import { iconClassForPath } from '../utils/fileUtils.js';
+import FileIcon from './FileIcon.jsx';
 
 export default function EditorPane({
   openTabs,
@@ -44,7 +44,7 @@ export default function EditorPane({
           return (
             <div key={tabPath} className={`tab ${isActive ? 'active' : ''} ${isPinned ? 'pinned' : ''}`}>
               <button type="button" className="tab-open" onClick={() => onSelectOpenTab(tabPath)}>
-                <span className={iconClassForPath(tabPath)} />
+                <FileIcon path={tabPath} className="file-icon" />
                 {tabName}
               </button>
               {isPinned ? (

@@ -1,10 +1,8 @@
 const deepLinks = [
-  { label: "career/overview.md", path: "career/overview.md" },
-  { label: "career/next-role.md", path: "career/next-role.md" },
-  { label: "stack/technologies.md", path: "stack/technologies.md" },
-  { label: "products/gm.xyz.md", path: "products/gm.xyz.md" },
-  { label: "products/joinperch.com.md", path: "products/joinperch.com.md" },
-  { label: "products/perch.app.md", path: "products/perch.app.md" },
+  { label: "Perch Reader Deep Dive", path: "work/perch.app" },
+  { label: "Perch Deep Dive", path: "work/joinperch.com" },
+  { label: "gm.xyz Deep Dive", path: "work/gm.xyz" },
+  { label: "Technical Stack", path: "personal/technologies.md" },
 ];
 
 const workRows = [
@@ -13,36 +11,35 @@ const workRows = [
     role: "Co-Founder + CTO",
     period: "Current",
     icon: "https://prod.r2-perch.com/Avatar-03.png",
+    companyUrl: "https://perch.app",
   },
   {
     company: "Perch",
     role: "Co-Founder + CTO",
     period: "Apr 2023 - Nov 2023",
     icon: "https://prod.r2-perch.com/media/icon.png",
+    companyUrl: "https://joinperch.com",
   },
   {
     company: "gm.xyz",
     role: "Co-Founder + CTO",
     period: "Sep 2021 - Apr 2023",
     icon: "https://prod.r2-perch.com/media/gm.xyz.png",
+    companyNote: "This service is deprecated and no longer has an active site.",
   },
   {
     company: "ThoughtWorks",
     role: "Senior Software Engineer",
     period: "Aug 2019 - Sep 2021",
     icon: "/images/work/thoughtworks.jpg",
+    companyUrl: "https://www.thoughtworks.com/en-us",
   },
   {
     company: "WillowTree",
     role: "Senior Software Engineer",
-    period: "Dec 2018 - Aug 2019",
+    period: "Oct 2016 - Aug 2019",
     icon: "/images/work/willowtree.png",
-  },
-  {
-    company: "WillowTree",
-    role: "Software Engineer",
-    period: "Oct 2016 - Dec 2018",
-    icon: "/images/work/willowtree.png",
+    companyUrl: "https://www.telusdigital.com/willowtree-is-now-telus-digital",
   },
 ];
 
@@ -75,7 +72,7 @@ function DeepLinkRail({ onOpenFile }) {
   );
 }
 
-export default function AboutConceptTab({ onOpenFile }) {
+export default function WelcomeTab({ onOpenFile }) {
   return (
     <div className="about-lab about-c6">
       <section className="about-c6-shell">
@@ -146,22 +143,45 @@ export default function AboutConceptTab({ onOpenFile }) {
         <section className="about-c6-work about-c6-card">
           <h2 className="about-c6-heading">Work</h2>
           <ul>
-            {workRows.map((row) => (
-              <li key={`${row.company}-${row.period}`}>
-                <div className="about-c6-work-main">
+            {workRows.map((row) => {
+              const rowContent = (
+                <>
                   <img
                     src={row.icon}
                     alt={`${row.company} logo`}
                     className="about-c6-work-icon"
                   />
-                  <div className="about-c6-work-copy">
-                    <strong>{row.company}</strong>
-                    <span>{row.role}</span>
-                  </div>
-                </div>
-                <time>{row.period}</time>
-              </li>
-            ))}
+                  <strong className="about-c6-work-name">{row.company}</strong>
+                  <time className="about-c6-work-period">{row.period}</time>
+                  <span className="about-c6-work-role">{row.role}</span>
+                </>
+              );
+
+              return (
+                <li key={`${row.company}-${row.period}`}>
+                  {row.companyUrl ? (
+                    <a
+                      href={row.companyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="about-c6-work-row about-c6-work-row-link"
+                    >
+                      {rowContent}
+                    </a>
+                  ) : (
+                    <div
+                      className="about-c6-work-row about-c6-work-row-static"
+                      data-tooltip={row.companyNote}
+                      title={row.companyNote}
+                      aria-label={`${row.company}. ${row.companyNote}`}
+                      tabIndex={0}
+                    >
+                      {rowContent}
+                    </div>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </section>
 

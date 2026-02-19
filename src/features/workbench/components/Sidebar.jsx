@@ -1,5 +1,5 @@
 import TreeNode from './TreeNode.jsx';
-import { iconClassForPath } from '../utils/fileUtils.js';
+import FileIcon from './FileIcon.jsx';
 import { moveSidebarFocus } from '../utils/keyboardUtils.js';
 
 function toSharedRepoTree(nodes, repoName) {
@@ -63,7 +63,7 @@ export default function Sidebar({
               <li key={`open-${tabPath}`}>
                 <div className={`open-editor-row ${activePath === tabPath ? 'active' : ''} ${isPinned ? 'pinned' : ''}`}>
                   <button type="button" className="open-editor-link" onClick={() => onSelectOpenTab(tabPath)}>
-                    <span className={iconClassForPath(tabPath)} />
+                    <FileIcon path={tabPath} className="file-icon" />
                     <span className="open-editor-name">{name}</span>
                   </button>
                   {isPinned ? (

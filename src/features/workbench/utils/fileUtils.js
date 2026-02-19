@@ -4,9 +4,28 @@ export function extensionFromPath(path) {
   return dot >= 0 ? file.slice(dot + 1).toLowerCase() : '';
 }
 
-export function languageFromPath(path) {
+const customFileIconByPath = {
+  'work/perch.app': 'https://prod.r2-perch.com/Avatar-03.png',
+  'work/joinperch.com': 'https://prod.r2-perch.com/media/icon.png',
+  'work/gm.xyz': 'https://prod.r2-perch.com/media/gm.xyz.png'
+};
+
+export function iconImageForPath(path) {
+  return customFileIconByPath[path] || '';
+}
+
+export function isMarkdownPath(path) {
+  if (!path) return false;
   const ext = extensionFromPath(path);
-  if (ext === 'md') return 'markdown';
+  if (['md', 'mdx', 'rst', 'txt'].includes(ext)) return true;
+  if (path.startsWith('work/')) return true;
+  return false;
+}
+
+export function languageFromPath(path) {
+  if (isMarkdownPath(path)) return 'markdown';
+
+  const ext = extensionFromPath(path);
   if (ext === 'html' || ext === 'htm') return 'html';
   if (ext === 'css') return 'css';
   if (ext === 'tsx' || ext === 'ts') return 'typescript';
@@ -42,12 +61,11 @@ export function iconClassForPath(path) {
   const ext = extensionFromPath(path);
 
   if (path === 'Welcome') return 'codicon codicon-vscode';
-  if (file === 'about.tsx' || file === 'about_me.md') return 'codicon codicon-account';
   if (file === 'readme' || file === 'readme.md') return 'codicon codicon-book';
   if (file === 'license' || file === 'license.md') return 'codicon codicon-note';
 
   if (isImagePath(path)) return 'codicon codicon-file-media';
-  if (ext === 'md' || ext === 'mdx' || ext === 'rst' || ext === 'txt') return 'codicon codicon-markdown';
+  if (isMarkdownPath(path)) return 'codicon codicon-markdown';
 
   if (ext === 'pdf') return 'codicon codicon-file-pdf';
   if (['zip', 'gz', 'tgz', 'bz2', 'xz', '7z', 'rar', 'tar'].includes(ext)) return 'codicon codicon-file-zip';
