@@ -1,4 +1,12 @@
-export default function TopBar({ githubUsername, onOpenQuickOpen, theme, onSetTheme }) {
+export default function TopBar({
+  githubUsername,
+  onOpenQuickOpen,
+  theme,
+  onSetTheme,
+  onOpenTrail,
+  trailActive = false,
+  commandLabel = 'Go to file... (Ctrl+P)'
+}) {
   return (
     <header className="gh-topbar">
       <div className="gh-topbar-inner">
@@ -7,9 +15,17 @@ export default function TopBar({ githubUsername, onOpenQuickOpen, theme, onSetTh
           <p className="gh-repo">{githubUsername} / personal-website</p>
         </div>
         <button className="gh-command" type="button" onClick={onOpenQuickOpen}>
-          Go to file... (Ctrl+P)
+          {commandLabel}
         </button>
         <div className="gh-right">
+          <button
+            type="button"
+            className={`trail-nav-button ${trailActive ? 'active' : ''}`}
+            onClick={onOpenTrail}
+            aria-label="Open Oregon Trail"
+          >
+            Trail
+          </button>
           <div className="theme-switch" role="group" aria-label="Color theme">
             <button
               type="button"

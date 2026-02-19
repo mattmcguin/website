@@ -4703,3 +4703,445 @@ a.w14-card strong {
     max-height: calc(min(76vh, 720px) - 46px);
   }
 }
+
+.activity-bar button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.activity-bar-bottom {
+  margin-top: auto;
+}
+
+.wagon-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.trail-nav-button {
+  border: 1px solid var(--gh-border);
+  background: color-mix(in srgb, var(--gh-top) 92%, transparent);
+  color: var(--gh-muted);
+  height: 28px;
+  padding: 0 0.65rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.trail-nav-button:hover,
+.trail-nav-button.active {
+  color: var(--gh-text);
+  border-color: var(--gh-active);
+  background: color-mix(in srgb, var(--gh-active) 25%, var(--gh-top));
+}
+
+.trail-page .workbench {
+  grid-template-columns: 48px 320px 1fr;
+}
+
+.trail-sidebar {
+  display: block;
+}
+
+.trail-editor {
+  background: var(--gh-editor);
+  display: grid;
+  grid-template-rows: 46px 1fr auto auto;
+  min-height: 0;
+}
+
+.trail-terminal-header {
+  border-bottom: 1px solid var(--gh-border);
+  padding: 0.55rem 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--gh-muted);
+  text-transform: uppercase;
+}
+
+.trail-terminal-header strong {
+  color: var(--gh-text);
+  letter-spacing: 0.08em;
+}
+
+.trail-terminal-output {
+  overflow: auto;
+  padding: 0.8rem 0.95rem;
+  font-family: 'IBM Plex Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.trail-line {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr);
+  column-gap: 0.65rem;
+  margin: 0 0 0.72rem;
+}
+
+.trail-line p {
+  margin: 0;
+}
+
+.trail-prefix {
+  color: var(--gh-muted);
+  font-size: 0.73rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding-top: 0.1rem;
+}
+
+.trail-role {
+  color: var(--gh-muted);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.18rem;
+}
+
+.trail-text {
+  color: var(--gh-text);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.trail-line-user .trail-text {
+  color: color-mix(in srgb, var(--gh-link) 70%, var(--gh-text));
+}
+
+.trail-line-system .trail-text,
+.trail-line-muted {
+  color: var(--gh-muted);
+}
+
+.trail-error {
+  margin: 0;
+  border-top: 1px solid color-mix(in srgb, var(--gh-danger) 45%, var(--gh-border));
+  background: color-mix(in srgb, var(--gh-danger) 14%, transparent);
+  color: color-mix(in srgb, var(--gh-danger) 85%, #fff);
+  padding: 0.5rem 0.85rem;
+  font-size: 0.78rem;
+}
+
+.trail-input-form {
+  border-top: 1px solid var(--gh-border);
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.52rem 0.75rem;
+  background: color-mix(in srgb, var(--gh-editor) 93%, #000 7%);
+}
+
+.trail-input-label {
+  color: var(--gh-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.trail-input-prefix {
+  color: var(--gh-active);
+  font-family: 'IBM Plex Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+}
+
+.trail-input-form input {
+  border: 1px solid var(--gh-border);
+  background: color-mix(in srgb, var(--gh-editor) 95%, transparent);
+  color: var(--gh-text);
+  border-radius: 6px;
+  min-width: 0;
+  padding: 0.45rem 0.55rem;
+  font-family: 'IBM Plex Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 0.83rem;
+}
+
+.trail-input-form input:focus {
+  outline: 1px solid var(--gh-active);
+  outline-offset: 0;
+}
+
+.trail-input-form button {
+  border: 1px solid var(--gh-border);
+  background: var(--gh-active);
+  color: #ffffff;
+  border-radius: 6px;
+  min-width: 70px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+.trail-input-form button:disabled,
+.trail-input-form input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.trail-side-head {
+  border-bottom: 1px solid var(--gh-border);
+}
+
+.trail-run-state {
+  padding: 0 0.72rem 0.8rem;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.trail-run-state p {
+  margin: 0 0 0.25rem;
+  color: var(--gh-text);
+}
+
+.trail-progress-card {
+  margin: 0.45rem 0 0.5rem;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--gh-border);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--gh-editor) 88%, transparent);
+}
+
+.trail-progress-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+  color: var(--gh-text);
+}
+
+.trail-progress-row span {
+  color: var(--gh-muted);
+  font-size: 0.72rem;
+}
+
+.trail-meter {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--gh-border) 90%, transparent);
+  overflow: hidden;
+  margin-bottom: 0.35rem;
+}
+
+.trail-meter span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--gh-active) 80%, #ffffff 20%), var(--gh-link));
+}
+
+.trail-chip-wrap {
+  padding: 0.35rem 0.72rem 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.trail-chip {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--gh-border);
+  border-radius: 999px;
+  padding: 0.16rem 0.5rem;
+  font-size: 0.68rem;
+  color: var(--gh-muted);
+  background: color-mix(in srgb, var(--gh-editor) 88%, transparent);
+}
+
+.trail-last-summary {
+  margin: 0;
+  padding: 0 0.72rem 0.78rem;
+  font-size: 0.73rem;
+  line-height: 1.45;
+  color: var(--gh-text);
+}
+
+.trail-party-list {
+  margin: 0;
+  padding: 0.35rem 0.72rem 0.8rem;
+  list-style: none;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.trail-party-list li {
+  border: 1px solid var(--gh-border);
+  border-radius: 8px;
+  padding: 0.45rem 0.5rem;
+  background: color-mix(in srgb, var(--gh-editor) 88%, transparent);
+}
+
+.trail-party-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.45rem;
+  color: var(--gh-text);
+  font-size: 0.76rem;
+}
+
+.trail-party-head strong {
+  color: var(--gh-muted);
+  font-size: 0.7rem;
+}
+
+.trail-member-meter {
+  margin-top: 0.28rem;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--gh-border) 90%, transparent);
+  overflow: hidden;
+}
+
+.trail-member-meter span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #d29922, #2ea043);
+}
+
+.trail-party-status {
+  margin: 0.35rem 0 0;
+  color: var(--gh-muted);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.trail-run-state.in-progress {
+  border-left: 2px solid color-mix(in srgb, var(--gh-active) 55%, transparent);
+}
+
+.trail-run-state.victory {
+  border-left: 2px solid #2ea043;
+}
+
+.trail-run-state.defeat {
+  border-left: 2px solid var(--gh-danger);
+}
+
+.trail-stat-list {
+  margin: 0;
+  padding: 0.35rem 0.72rem 0.7rem;
+  list-style: none;
+  font-size: 0.77rem;
+  line-height: 1.45;
+  color: var(--gh-text);
+}
+
+.trail-stat-list li {
+  padding: 0.1rem 0;
+}
+
+.trail-leaderboard {
+  margin: 0;
+  padding: 0.3rem 0.72rem 0.8rem 1.6rem;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.trail-leaderboard li {
+  min-width: 0;
+}
+
+.trail-leaderboard-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.trail-player {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--gh-text);
+  font-size: 0.8rem;
+}
+
+.trail-leaderboard-meta {
+  margin: 0.12rem 0 0;
+  color: var(--gh-muted);
+  font-size: 0.7rem;
+}
+
+.trail-name-form {
+  padding: 0.35rem 0.72rem 0.8rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.trail-name-form label {
+  color: var(--gh-muted);
+  font-size: 0.73rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.trail-name-form input {
+  border: 1px solid var(--gh-border);
+  background: color-mix(in srgb, var(--gh-editor) 95%, transparent);
+  color: var(--gh-text);
+  border-radius: 6px;
+  padding: 0.45rem 0.55rem;
+  font-size: 0.84rem;
+}
+
+.trail-name-form button {
+  border: 1px solid var(--gh-border);
+  background: var(--gh-active);
+  color: #ffffff;
+  border-radius: 6px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+@media (max-width: 1100px) {
+  .trail-page .workbench {
+    grid-template-columns: 48px 280px 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .trail-page .workbench {
+    grid-template-columns: 48px 1fr;
+  }
+
+  .trail-page .trail-sidebar {
+    display: none;
+  }
+
+  .trail-page .workbench.sidebar-collapsed {
+    grid-template-columns: 48px 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .trail-page .trail-nav-button {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .trail-page .trail-terminal-header {
+    display: block;
+    line-height: 1.4;
+  }
+
+  .trail-page .trail-input-form {
+    grid-template-columns: auto 1fr auto;
+  }
+
+  .trail-page .trail-input-label {
+    display: none;
+  }
+}

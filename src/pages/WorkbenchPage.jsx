@@ -232,7 +232,13 @@ export default function WorkbenchPage() {
   return (
     <main className={`githubdev-page theme-${theme}`}>
       <div className="githubdev-app">
-        <TopBar githubUsername={githubUsername} onOpenQuickOpen={openQuickOpen} theme={theme} onSetTheme={setTheme} />
+        <TopBar
+          githubUsername={githubUsername}
+          onOpenQuickOpen={openQuickOpen}
+          onOpenTrail={() => navigate('/oregon-trail')}
+          theme={theme}
+          onSetTheme={setTheme}
+        />
 
         <div className={`workbench ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
           <ActivityBar
