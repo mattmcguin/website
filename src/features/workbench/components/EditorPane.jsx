@@ -1,5 +1,21 @@
+import { useEffect, useRef } from 'react';
 import Editor from '@monaco-editor/react';
 import FileIcon from './FileIcon.jsx';
+
+let mermaidRuntimePromise;
+
+async function getMermaidRuntime() {
+  if (!mermaidRuntimePromise) {
+    mermaidRuntimePromise = import('mermaid').then(({ default: mermaid }) => {
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'strict'
+      });
+      return mermaid;
+    });
+  }
+  return mermaidRuntimePromise;
+}
 
 export default function EditorPane({
   openTabs,
@@ -18,6 +34,7 @@ export default function EditorPane({
   customTabContent,
   isTabPinned = () => false
 }) {
+  const markdownPreviewRef = useRef(null);
   const showMarkdownPreview = Boolean(activePath) && isMarkdown;
 
   function handleMarkdownLinkClick(event) {
@@ -33,6 +50,38 @@ export default function EditorPane({
     event.preventDefault();
     window.open(link.href, '_blank', 'noopener,noreferrer');
   }
+
+  useEffect(() => {
+    if (!showMarkdownPreview || renderingMarkdown[activePath]) return;
+
+    const container = markdownPreviewRef.current;
+    if (!container) return;
+
+    const nodes = Array.from(container.querySelectorAll('.mermaid')).filter(
+      (node) => !node.getAttribute('data-mermaid-processed')
+    );
+    if (!nodes.length) return;
+
+    let cancelled = false;
+    async function renderMermaid() {
+      try {
+        const mermaid = await getMermaidRuntime();
+        if (cancelled) return;
+
+        await mermaid.run({ nodes, suppressErrors: true });
+        if (!cancelled) {
+          nodes.forEach((node) => node.setAttribute('data-mermaid-processed', 'true'));
+        }
+      } catch (_error) {
+        // Keep source text visible if diagram rendering fails.
+      }
+    }
+
+    renderMermaid();
+    return () => {
+      cancelled = true;
+    };
+  }, [showMarkdownPreview, renderingMarkdown, activePath, renderedMarkdown]);
 
   return (
     <section className="editor-pane">
@@ -94,7 +143,7 @@ export default function EditorPane({
             }}
           />
         ) : (
-          <div className="markdown-preview" onClick={handleMarkdownLinkClick}>
+          <div className="markdown-preview" onClick={handleMarkdownLinkClick} ref={markdownPreviewRef}>
             {renderingMarkdown[activePath] ? (
               <p className="md-loading">Rendering with GitHub Markdown...</p>
             ) : (

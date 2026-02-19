@@ -480,6 +480,10 @@ button {
   background: color-mix(in srgb, var(--gh-border) 90%, transparent);
 }
 
+.open-editor-row:not(.active):hover {
+  background: color-mix(in srgb, var(--gh-border) 75%, transparent);
+}
+
 .open-editor-link {
   flex: 1;
   min-width: 0;
@@ -545,10 +549,6 @@ button {
 .sidebar-icon-button .codicon {
   font-size: 14px;
   line-height: 1;
-}
-
-.open-editor-link:hover {
-  background: color-mix(in srgb, var(--gh-border) 75%, transparent);
 }
 
 .tree-item:hover {
@@ -943,6 +943,25 @@ button {
 .markdown-preview pre code {
   background: transparent;
   padding: 0;
+}
+
+.markdown-preview .md-mermaid {
+  margin: 0.72rem 0 1rem;
+  padding: 0.72rem 0.84rem;
+  border: 1px solid var(--gh-border);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--gh-top) 70%, transparent);
+}
+
+.markdown-preview .md-mermaid .mermaid {
+  overflow-x: auto;
+}
+
+.markdown-preview .md-mermaid .mermaid svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
 }
 
 .markdown-preview hr {
