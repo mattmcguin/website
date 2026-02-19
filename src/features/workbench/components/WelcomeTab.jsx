@@ -89,7 +89,13 @@ export default function WelcomeTab({ onOpenFile }) {
           <article className="about-c6-prose">
             <p>
               I&apos;m a Software Engineer living in NYC working on a startup
-              with my brother.
+              with my brother <a
+                href="https://x.com/mikemcg0"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Mike
+              </a>.
             </p>
 
             <p>
