@@ -20,8 +20,7 @@ const productTimeline = [
     ],
     statsStyle: 'pill',
     stats: [
-      { label: 'MAU', value: '~2.5K' },
-      { label: 'Total users', value: '~20K' }
+      { label: 'Total Users', value: '~20K' }
     ],
     filePath: 'products/perch.app.md'
   },
@@ -44,8 +43,7 @@ const productTimeline = [
     ],
     statsStyle: 'pill',
     stats: [
-      { label: 'MAU', value: '~5K' },
-      { label: 'Total users', value: '~100K' }
+      { label: 'Total Users', value: '~100K' }
     ],
     filePath: 'products/joinperch.com.md'
   },
@@ -69,8 +67,7 @@ const productTimeline = [
     ],
     statsStyle: 'pill',
     stats: [
-      { label: 'MAU', value: '~2K' },
-      { label: 'Total users', value: '~50K' }
+      { label: 'Total Users', value: '~30K' }
     ],
     filePath: 'products/gm.xyz.md'
   }
