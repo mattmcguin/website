@@ -84,7 +84,7 @@ export default function TreeNode({
         aria-expanded={isExpanded}
       >
         <span className={`codicon ${isExpanded ? 'codicon-chevron-down' : 'codicon-chevron-right'}`} />
-        <span className="codicon codicon-folder" />
+        <span className={`codicon ${isExpanded ? 'codicon-folder-opened' : 'codicon-folder'}`} aria-hidden="true" />
         {node.name}
       </button>
       {isExpanded && (

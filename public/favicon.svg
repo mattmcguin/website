@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Alternate favicon 2">
+  <defs>
+    <linearGradient id="bg2" x1="8" y1="56" x2="56" y2="8" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111827" />
+      <stop offset="1" stop-color="#374151" />
+    </linearGradient>
+    <linearGradient id="m2" x1="16" y1="48" x2="48" y2="16" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f59e0b" />
+      <stop offset="1" stop-color="#ef4444" />
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="url(#bg2)" />
+  <path
+    fill="url(#m2)"
+    d="M15 46V18h7l10 12 10-12h7v28h-7V30l-8 10h-4l-8-10v16z"
+  />
+</svg>

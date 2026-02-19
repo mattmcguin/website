@@ -38,11 +38,39 @@ export function statusLanguage(path) {
 }
 
 export function iconClassForPath(path) {
-  if (path === 'START_HERE.jsx') return 'codicon codicon-book';
+  const file = (path.split('/').pop() || '').toLowerCase();
   const ext = extensionFromPath(path);
-  if (ext === 'md') return 'codicon codicon-markdown';
+
+  if (path === 'Welcome') return 'codicon codicon-vscode';
+  if (file === 'readme' || file === 'readme.md') return 'codicon codicon-book';
+  if (file === 'license' || file === 'license.md') return 'codicon codicon-note';
+
   if (isImagePath(path)) return 'codicon codicon-file-media';
-  if (ext === 'tsx' || ext === 'ts' || ext === 'jsx') return 'codicon codicon-symbol-class';
+  if (ext === 'md' || ext === 'mdx' || ext === 'rst' || ext === 'txt') return 'codicon codicon-markdown';
+
+  if (ext === 'pdf') return 'codicon codicon-file-pdf';
+  if (['zip', 'gz', 'tgz', 'bz2', 'xz', '7z', 'rar', 'tar'].includes(ext)) return 'codicon codicon-file-zip';
+  if (['lock', 'bin', 'exe'].includes(ext)) return 'codicon codicon-file-binary';
+
+  if (['json', 'jsonc', 'yaml', 'yml', 'toml', 'xml', 'ini', 'conf', 'config', 'env', 'properties'].includes(ext)) {
+    return 'codicon codicon-json';
+  }
+
+  if (
+    [
+      'ts', 'tsx', 'js', 'jsx', 'mjs', 'cjs',
+      'py', 'java',
+      'cpp', 'cxx', 'cc', 'hpp', 'hxx', 'hh', 'c', 'h',
+      'cs', 'go', 'rs', 'rb', 'php', 'swift',
+      'kt', 'kts', 'scala', 'dart', 'lua', 'pl',
+      'sh', 'bash', 'zsh', 'fish', 'ps1',
+      'sql', 'r', 'vue', 'svelte',
+      'html', 'htm', 'css', 'scss', 'sass', 'less'
+    ].includes(ext)
+  ) {
+    return 'codicon codicon-file-code';
+  }
+
   return 'codicon codicon-file';
 }
 
