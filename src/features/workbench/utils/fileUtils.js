@@ -42,6 +42,7 @@ export function iconClassForPath(path) {
   const ext = extensionFromPath(path);
 
   if (path === 'Welcome') return 'codicon codicon-vscode';
+  if (file === 'about.tsx' || file === 'about_me.md') return 'codicon codicon-account';
   if (file === 'readme' || file === 'readme.md') return 'codicon codicon-book';
   if (file === 'license' || file === 'license.md') return 'codicon codicon-note';
 
