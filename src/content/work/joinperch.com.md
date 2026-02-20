@@ -1,19 +1,10 @@
 # <img src="https://mattmcguiness.com/images/work/joinperch.com.png" alt="Perch logo" width="30" height="30" /> Perch ([joinperch.com](https://joinperch.com))
 
-![Users](https://img.shields.io/badge/Users-~100K-2ea043?style=for-the-badge) ![Creators](https://img.shields.io/badge/Creators-1%2C000%2B-1f6feb?style=for-the-badge)
-
 Creator platform that turns audience questions into newsletters and SEO-friendly knowledge pages.
-
-# Overview
-
-- **Role:** Co-Founder + CTO
-- **Team:** **2** founders + **2** engineers + **1** designer
-- **Scale:** **~100K** unique users, **1,000+** creators
-- **Product:** [Web](https://joinperch.com)
 
 # Product Positioning
 
-Perch lets anyone host an AMA (Ask Me Anything) on their own domain with their own branding and automatically turns those answers into a weekly email digest audiences can subscribe to. It delivers many of the same benefits as a Substack or Beehiiv newsletter, but with a fraction of the work and a format that is more engaging and digestible for readers. Similar to Substack, creators own their mailing list, reducing dependence on third-party platforms like Instagram and Twitter. We also supported paywalled answers to create an additional revenue stream, similar to Patreon, while publishing SEO-friendly answer pages that compound long-tail discovery.
+joinperch.com lets anyone host an AMA (Ask Me Anything) on their own domain with their own branding and automatically turns those answers into a weekly email digest audiences can subscribe to. It delivers many of the same benefits as a Substack or Beehiiv newsletter, but with a fraction of the work and a format that is more engaging and digestible for readers. Similar to Substack, creators own their mailing list, reducing dependence on third-party platforms like Instagram and Twitter. We also supported paywalled answers to create an additional revenue stream, similar to Patreon, while publishing SEO-friendly answer pages that compound long-tail discovery.
 
 # My Role
 
@@ -32,4 +23,4 @@ Perch lets anyone host an AMA (Ask Me Anything) on their own domain with their o
 
 # Outcome
 
-Perch reached meaningful early scale with over 1,000 creators and roughly 100K unique users, validating that creator Q&A can work as both a growth loop and a monetization engine. Creators are still using the product today but we deprioritized the product in favor of Perch Reader.
+joinperch.com reached meaningful early scale with over 1,000 creators and roughly 100K unique users, validating that creator Q&A can work as both a growth loop and a monetization engine. Creators are still using the product today.

@@ -10,7 +10,7 @@ export const introTabPath = "Welcome";
 export const staticFileContents = {
   [introTabPath]: `// Welcome tab — rendered as a custom React component.`,
   "work/gm.xyz": gmXyzMarkdown,
-  "work/joinperch.com": joinPerchMarkdown,
+  "personal/joinperch.com": joinPerchMarkdown,
   "work/perch.app": perchAppMarkdown,
   "personal/technologies.md": technologiesMarkdown,
 };
@@ -26,7 +26,6 @@ export const tree = [
     name: "work",
     children: [
       { type: "file", name: "perch.app", path: "work/perch.app" },
-      { type: "file", name: "joinperch.com", path: "work/joinperch.com" },
       { type: "file", name: "gm.xyz", path: "work/gm.xyz" },
     ],
   },
@@ -39,6 +38,7 @@ export const tree = [
         name: "technologies.md",
         path: "personal/technologies.md",
       },
+      { type: "file", name: "joinperch.com", path: "personal/joinperch.com" },
     ],
   },
 ];

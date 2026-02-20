@@ -18,18 +18,11 @@ const socialLinks = [
 
 const workRows = [
   {
-    company: "Perch Reader",
+    company: "Perch",
     role: "Co-Founder + CTO",
     period: "Current",
     icon: "https://prod.r2-perch.com/Avatar-03.png",
     filePath: "work/perch.app",
-  },
-  {
-    company: "joinperch.com",
-    role: "Co-Founder + CTO",
-    period: "Apr 2023 - Nov 2023",
-    icon: "/images/work/joinperch.com.png",
-    filePath: "work/joinperch.com",
   },
   {
     company: "gm.xyz",
@@ -53,6 +46,8 @@ const workRows = [
     companyUrl: "https://www.telusdigital.com/willowtree-is-now-telus-digital",
   },
 ];
+
+const resumePath = "/matt-mcguiness-resume.pdf";
 
 function OpenFileButton({ onOpenFile, path, children, className = "" }) {
   return (
@@ -110,7 +105,7 @@ function SocialRail() {
   );
 }
 
-export default function WelcomeTab({ onOpenFile }) {
+export default function WelcomeTab({ onOpenFile, introAction = null }) {
   return (
     <div className="welcome-lab">
       <section className="welcome-shell">
@@ -121,74 +116,70 @@ export default function WelcomeTab({ onOpenFile }) {
               alt="Matt McGuiness"
               className="welcome-avatar"
             />
-            <h1 className="welcome-name">Matt McGuiness</h1>
+            <div className="welcome-intro-main">
+              <h1 className="welcome-name">Matt McGuiness</h1>
+              {introAction ? (
+                <div className="welcome-intro-action">{introAction}</div>
+              ) : null}
+            </div>
           </header>
 
           <article className="welcome-prose">
             <p>
-              I&apos;m a Software Engineer living in NYC working on a startup
-              with my brother{" "}
-              <a
-                href="https://x.com/mikemcg0"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Mike
-              </a>
-              .
-            </p>
-
-            <p>
-              Currently we&apos;re building{" "}
+              Hi, I'm the co-founder and CTO of{" "}
               <a
                 href="https://perch.app"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Perch Reader
-              </a>
-              , a free reading aggregator with AI chat and listening across the
-              open web.
-            </p>
-            <p>
-              Before Perch Reader we built a crypto-native social platform
-              called gm.xyz and a creator AMA platform also called{" "}
-              <a
-                href="https://joinperch.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
                 Perch
               </a>
-              . Both of these products were the stepping stones necessary to
-              create Perch Reader.
+              . Our mission is to make reading free and delightful, which we
+              wrote about here:
+              <ul className="welcome-prose-list">
+                <li>
+                  <a href="https://perch.app/blog/how-perch-will-make-reading-free">
+                    How Perch Will Make Reading Free
+                  </a>
+                </li>
+                <li>
+                  <a href="https://perch.app/blog/the-future-of-books">
+                    The Future of Books
+                  </a>
+                </li>
+              </ul>
             </p>
 
             <p>
-              Prior to starting GM Labs, I was a Senior Software Engineer at{" "}
-              <a
-                href="https://www.thoughtworks.com/en-us"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Thoughtworks
-              </a>{" "}
-              and{" "}
-              <a
-                href="https://www.telusdigital.com/willowtree-is-now-telus-digital"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                WillowTree
-              </a>
-              .
+              Before Perch I was the co-founder and CTO of gm.xyz, which was one
+              of the first crypto-native social networks to reach tens of
+              thousands of users. In hindsight, the idea was too early, but the
+              promise of decentralized social media is something I still believe
+              in.
+            </p>
+
+            <p>
+              My life's work is building great products, ideally ones I use
+              myself. If you're interested in working together, reach out via{" "}
+              <a href="mailto:mattjmcguiness@gmail.com">email</a>.
             </p>
           </article>
           <SocialRail />
         </section>
 
         <section className="welcome-work welcome-card">
-          <h2 className="welcome-heading">Work</h2>
+          <div className="welcome-work-header">
+            <h2 className="welcome-heading">Work</h2>
+            <a
+              href={resumePath}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="welcome-resume-link"
+            >
+              <span className="codicon codicon-file" aria-hidden="true" />
+              Resume
+            </a>
+          </div>
           <ul>
             {workRows.map((row) => {
               const rowContent = (
@@ -232,7 +223,6 @@ export default function WelcomeTab({ onOpenFile }) {
             Tap a project above to read its case study.
           </p>
         </section>
-
       </section>
     </div>
   );

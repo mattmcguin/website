@@ -20,8 +20,9 @@ import { useGitHubData } from '../features/workbench/hooks/useGitHubData.js';
 import { useMarkdownPreview } from '../features/workbench/hooks/useMarkdownPreview.js';
 import { useWorkbenchState } from '../features/workbench/hooks/useWorkbenchState.js';
 import { isImagePath, isMarkdownPath, languageFromPath, statusLanguage } from '../features/workbench/utils/fileUtils.js';
+import { filePathFromSimpleSlug, simplePathFromFile } from '../features/workbench/utils/navigationMap.js';
 
-export default function WorkbenchPage() {
+export default function WorkbenchPage({ onExitDeveloperMode }) {
   const githubSyncEnabled = true;
   const [mobileExplorerOpen, setMobileExplorerOpen] = useState(false);
   const location = useLocation();
@@ -74,13 +75,26 @@ export default function WorkbenchPage() {
     () => new URLSearchParams(location.search).get('file') || '',
     [location.search]
   );
+  const routeFileFromPathname = useMemo(() => {
+    if (location.pathname === '/') return '';
+    const match = location.pathname.match(/^\/work\/([^/?#]+)/);
+    if (!match) return '';
+    let slug = match[1];
+    try {
+      slug = decodeURIComponent(match[1]);
+    } catch (_error) {
+      return '';
+    }
+    return filePathFromSimpleSlug(slug) || '';
+  }, [location.pathname]);
+  const routeFileCandidate = routeFileParam || routeFileFromPathname || defaultFile;
   const routeFileIsValid = useMemo(
-    () => !routeFileParam || allFilePaths.includes(routeFileParam),
-    [routeFileParam, allFilePaths]
+    () => allFilePaths.includes(routeFileCandidate),
+    [routeFileCandidate, allFilePaths]
   );
   const resolvedRoutePath = useMemo(
-    () => (routeFileIsValid ? (routeFileParam || defaultFile) : defaultFile),
-    [routeFileIsValid, routeFileParam]
+    () => (routeFileIsValid ? routeFileCandidate : defaultFile),
+    [routeFileIsValid, routeFileCandidate]
   );
 
   const quickOpenResults = useMemo(() => {
@@ -100,17 +114,25 @@ export default function WorkbenchPage() {
     activePathRef.current = activePath;
   }, [activePath]);
 
-  function buildSearchForPath(path) {
-    if (!path || path === defaultFile) return '';
+  function buildRouteForPath(path) {
+    if (!path || path === defaultFile) {
+      return { pathname: '/', search: '' };
+    }
+
+    const mappedPathname = simplePathFromFile(path);
+    if (mappedPathname !== '/') {
+      return { pathname: mappedPathname, search: '' };
+    }
+
     const params = new URLSearchParams();
     params.set('file', path);
-    return `?${params.toString()}`;
+    return { pathname: '/', search: `?${params.toString()}` };
   }
 
   function pushPathToRoute(path, { replace = false } = {}) {
-    const nextSearch = buildSearchForPath(path);
-    if (location.search === nextSearch) return;
-    navigate({ pathname: '/', search: nextSearch }, { replace });
+    const nextRoute = buildRouteForPath(path);
+    if (location.pathname === nextRoute.pathname && location.search === nextRoute.search) return;
+    navigate(nextRoute, { replace });
   }
 
   function handleOpenFile(path) {
@@ -137,6 +159,16 @@ export default function WorkbenchPage() {
     pushPathToRoute(routePath, { replace: false });
     githubData.openGitHubRepoFile(repo, repoPath);
     setMobileExplorerOpen(false);
+  }
+
+  function handleToggleDeveloperMode() {
+    if (typeof onExitDeveloperMode === 'function') {
+      onExitDeveloperMode();
+      return;
+    }
+
+    const sourcePath = activePathRef.current || routeFileCandidate || defaultFile;
+    navigate(simplePathFromFile(sourcePath), { replace: true });
   }
 
   const customTabContent = activePath === introTabPath
@@ -213,26 +245,33 @@ export default function WorkbenchPage() {
   useEffect(() => {
     const normalizedActivePath = activePath || defaultFile;
     if (syncingPathFromRouteRef.current) {
-      if (normalizedActivePath === resolvedRoutePath) {
-        syncingPathFromRouteRef.current = false;
-      }
-      return;
+      if (normalizedActivePath !== resolvedRoutePath) return;
+      syncingPathFromRouteRef.current = false;
     }
 
     if (!routeFileIsValid) {
-      navigate({ pathname: '/', search: buildSearchForPath(normalizedActivePath) }, { replace: true });
+      navigate(buildRouteForPath(normalizedActivePath), { replace: true });
       return;
     }
 
-    if (resolvedRoutePath === normalizedActivePath) return;
+    const canonicalRoute = buildRouteForPath(normalizedActivePath);
+    if (location.pathname === canonicalRoute.pathname && location.search === canonicalRoute.search) return;
 
-    navigate({ pathname: '/', search: buildSearchForPath(normalizedActivePath) }, { replace: false });
-  }, [activePath, routeFileIsValid, resolvedRoutePath, navigate]);
+    navigate(canonicalRoute, { replace: false });
+  }, [activePath, routeFileIsValid, resolvedRoutePath, navigate, location.pathname, location.search]);
 
   return (
     <main className={`githubdev-page theme-${theme}`}>
       <div className="githubdev-app">
-        <TopBar githubUsername={githubUsername} onOpenQuickOpen={openQuickOpen} theme={theme} onSetTheme={setTheme} />
+        <TopBar
+          githubUsername={githubUsername}
+          onOpenQuickOpen={openQuickOpen}
+          theme={theme}
+          onSetTheme={setTheme}
+          developerModeEnabled
+          onToggleDeveloperMode={handleToggleDeveloperMode}
+          developerModeLabel="Exit Developer Mode"
+        />
 
         <div className={`workbench ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
           <ActivityBar
