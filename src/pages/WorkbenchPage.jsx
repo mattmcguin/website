@@ -172,7 +172,16 @@ export default function WorkbenchPage({ onExitDeveloperMode }) {
   }
 
   const customTabContent = activePath === introTabPath
-    ? <WelcomeTab onOpenFile={handleOpenFile} />
+    ? (
+      <WelcomeTab
+        onOpenFile={handleOpenFile}
+        introAction={(
+          <button type="button" className="simple-dev-toggle" onClick={handleToggleDeveloperMode}>
+            Exit Developer Mode
+          </button>
+        )}
+      />
+    )
     : null;
 
   function commitQuickOpenSelection() {

@@ -1672,7 +1672,7 @@ button {
     line-height: 1.35;
   }
 
-  .simple-page .welcome-intro-action .simple-dev-toggle {
+  .welcome-intro-action .simple-dev-toggle {
     min-height: 30px;
     font-size: 0.72rem;
     padding: 0 0.68rem;
