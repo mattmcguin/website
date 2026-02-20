@@ -144,11 +144,13 @@ export default function EditorPane({
           />
         ) : (
           <div className="markdown-preview" onClick={handleMarkdownLinkClick} ref={markdownPreviewRef}>
-            {renderingMarkdown[activePath] ? (
-              <p className="md-loading">Rendering with GitHub Markdown...</p>
-            ) : (
-              <div dangerouslySetInnerHTML={{ __html: renderedMarkdown[activePath] || '' }} />
-            )}
+            <div className="markdown-preview-body">
+              {renderingMarkdown[activePath] ? (
+                <p className="md-loading">Rendering markdown preview...</p>
+              ) : (
+                <div dangerouslySetInnerHTML={{ __html: renderedMarkdown[activePath] || '' }} />
+              )}
+            </div>
           </div>
         )}
       </div>

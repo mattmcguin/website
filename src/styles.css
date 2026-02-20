@@ -840,6 +840,11 @@ button {
   color: var(--gh-text);
 }
 
+.markdown-preview-body {
+  width: min(100%, 78ch);
+  margin: 0 auto;
+}
+
 .markdown-preview h1,
 .markdown-preview h2,
 .markdown-preview h3 {
@@ -854,17 +859,14 @@ button {
   line-height: 1.25;
 }
 
-.markdown-preview h1 img {
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
-  object-fit: cover;
-  vertical-align: -6px;
-  margin-right: 0.45rem;
+.markdown-preview h1:not(:first-child) {
+  margin-top: 1.9rem;
 }
 
 .markdown-preview h2 {
   margin: 1.5rem 0 0.72rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--gh-border);
   font-size: 1.18rem;
   line-height: 1.35;
 }
@@ -971,6 +973,7 @@ button {
 }
 
 .md-loading {
+  margin: 0;
   color: var(--gh-muted);
   font-size: 0.8rem;
 }
@@ -1241,23 +1244,6 @@ button {
   gap: 0.9rem;
 }
 
-.welcome-deep-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
-}
-
-.welcome-deep-link {
-  border: 0;
-  border-bottom: 1px dashed
-    color-mix(in srgb, var(--gh-active) 70%, var(--gh-border));
-  background: transparent;
-  color: #79c0ff;
-  font-size: 0.82rem;
-  padding: 0.22rem 0;
-  cursor: pointer;
-}
-
 .welcome-shell {
   width: min(100%, 680px);
   margin: 0 auto;
@@ -1276,8 +1262,9 @@ button {
 }
 
 .welcome-profile {
-  display: grid;
-  gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
 }
 
 .welcome-intro {
@@ -1323,9 +1310,44 @@ button {
   font-weight: 500;
 }
 
-.welcome-heading {
-  margin: 0 0 0.7rem;
+.welcome-social-row {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+
+.welcome-social-link {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  background: transparent;
   color: var(--gh-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 120ms ease;
+}
+
+.welcome-social-link svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+.welcome-social-link:hover {
+  color: var(--gh-text);
+}
+
+.welcome-social-link:focus-visible {
+  outline: 1px solid color-mix(in srgb, var(--gh-active) 75%, #ffffff 25%);
+  outline-offset: 2px;
+}
+
+.welcome-heading {
+  margin: 0 0 0.5rem;
+  color: var(--gh-text);
   font-size: 1.1rem;
   font-weight: 600;
   line-height: 1.7;
@@ -1337,13 +1359,6 @@ button {
   list-style: none;
 }
 
-.welcome-work-note {
-  margin: 0 0 0.65rem;
-  color: var(--gh-muted);
-  font-size: 0.92rem;
-  line-height: 1.4;
-}
-
 .welcome-work li {
   padding: 0;
   border-bottom: 1px solid color-mix(in srgb, var(--gh-border) 70%, transparent);
@@ -1351,6 +1366,14 @@ button {
 
 .welcome-work li:last-child {
   border-bottom: 0;
+}
+
+.welcome-work-footer-note {
+  margin: 1.5rem 0 0;
+  color: var(--gh-muted);
+  font-size: 0.84rem;
+  line-height: 1.35;
+  text-align: center;
 }
 
 .welcome-work-row {
@@ -1426,32 +1449,6 @@ button {
   line-height: 1.3;
 }
 
-.welcome-links .welcome-deep-links {
-  display: grid;
-  gap: 0;
-}
-
-.welcome-links .welcome-deep-link {
-  text-align: left;
-  display: block;
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  border-bottom-color: color-mix(in srgb, var(--gh-border) 70%, transparent);
-  padding: 0.56rem 0;
-  font-size: 1.02rem;
-  line-height: 1.35;
-  font-weight: 500;
-}
-
-.welcome-links .welcome-deep-link:last-child {
-  border-bottom: 0;
-  padding-bottom: 0;
-}
-
-.welcome-deep-link:hover {
-  text-decoration: underline;
-}
-
 @media (max-width: 980px) {
   .welcome-lab {
     padding: 0.8rem 0.75rem 1rem;
@@ -1506,10 +1503,20 @@ button {
     padding: 0;
   }
 
-  .welcome-work-note {
-    margin-bottom: 0.5rem;
-    font-size: 0.84rem;
+  .welcome-work-footer-note {
+    margin-top: 0.55rem;
+    font-size: 0.78rem;
     line-height: 1.35;
+  }
+
+  .welcome-social-link {
+    width: 36px;
+    height: 36px;
+  }
+
+  .welcome-social-link svg {
+    width: 20px;
+    height: 20px;
   }
 
   .welcome-work-row {
@@ -1564,8 +1571,4 @@ button {
     height: 20px;
   }
 
-  .welcome-links .welcome-deep-link {
-    font-size: 0.9rem;
-    padding: 0.45rem 0;
-  }
 }
