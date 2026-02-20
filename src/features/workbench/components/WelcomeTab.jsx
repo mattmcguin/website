@@ -160,7 +160,7 @@ export default function WelcomeTab({ onOpenFile, introAction = null }) {
 
             <p>
               My life's work is building great products, ideally ones I use
-              myself. If you're interested in working together, reach out via{" "}
+              myself. If you'd like to get in touch, reach out via{" "}
               <a href="mailto:mattjmcguiness@gmail.com">email</a>.
             </p>
           </article>
