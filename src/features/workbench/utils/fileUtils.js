@@ -6,7 +6,7 @@ export function extensionFromPath(path) {
 
 const customFileIconByPath = {
   'work/perch.app': 'https://prod.r2-perch.com/Avatar-03.png',
-  'work/joinperch.com': 'https://prod.r2-perch.com/media/icon.png',
+  'work/joinperch.com': '/images/work/joinperch.com.png',
   'work/gm.xyz': 'https://prod.r2-perch.com/media/gm.xyz.png'
 };
 

@@ -1229,10 +1229,10 @@ button {
 }
 
 /* ==========================================================================
-   About (Component-rendered Welcome tab)
+   Welcome (Component-rendered Welcome tab)
    ========================================================================== */
 
-.about-lab {
+.welcome-lab {
   min-height: 100%;
   padding: 1.2rem 1.3rem 1.55rem;
   background: var(--gh-editor);
@@ -1241,13 +1241,13 @@ button {
   gap: 0.9rem;
 }
 
-.about-deep-links {
+.welcome-deep-links {
   display: flex;
   flex-wrap: wrap;
   gap: 0.45rem;
 }
 
-.about-deep-link {
+.welcome-deep-link {
   border: 0;
   border-bottom: 1px dashed
     color-mix(in srgb, var(--gh-active) 70%, var(--gh-border));
@@ -1258,7 +1258,7 @@ button {
   cursor: pointer;
 }
 
-.about-c6-shell {
+.welcome-shell {
   width: min(100%, 680px);
   margin: 0 auto;
   padding: 0.8rem 0 0.3rem;
@@ -1267,7 +1267,7 @@ button {
   align-content: start;
 }
 
-.about-c6-card {
+.welcome-card {
   border: 1px solid color-mix(in srgb, var(--gh-border) 88%, transparent);
   border-radius: 12px;
   background: color-mix(in srgb, var(--gh-top) 84%, transparent);
@@ -1275,25 +1275,25 @@ button {
   align-self: start;
 }
 
-.about-c6-profile {
+.welcome-profile {
   display: grid;
   gap: 2rem;
 }
 
-.about-c6-intro {
+.welcome-intro {
   display: flex;
   align-items: center;
   gap: 0.8rem;
 }
 
-.about-c6-name {
+.welcome-name {
   margin: 0;
   font-size: 1.6rem;
   line-height: 1.7;
   font-weight: 600;
 }
 
-.about-c6-avatar {
+.welcome-avatar {
   width: 52px;
   height: 52px;
   border-radius: 999px;
@@ -1301,13 +1301,13 @@ button {
   display: block;
 }
 
-.about-c6-prose {
+.welcome-prose {
   display: grid;
   gap: 1.7rem;
   color-scheme: dark;
 }
 
-.about-c6-prose p {
+.welcome-prose p {
   margin: 0;
   padding: 0;
   color: var(--gh-text);
@@ -1316,14 +1316,14 @@ button {
   font-weight: 500;
 }
 
-.about-c6-prose a {
+.welcome-prose a {
   color: var(--gh-muted);
   font-size: 1.3rem;
   line-height: 1.56;
   font-weight: 500;
 }
 
-.about-c6-heading {
+.welcome-heading {
   margin: 0 0 0.7rem;
   color: var(--gh-muted);
   font-size: 1.1rem;
@@ -1331,22 +1331,29 @@ button {
   line-height: 1.7;
 }
 
-.about-c6-work ul {
+.welcome-work ul {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.about-c6-work li {
+.welcome-work-note {
+  margin: 0 0 0.65rem;
+  color: var(--gh-muted);
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.welcome-work li {
   padding: 0;
   border-bottom: 1px solid color-mix(in srgb, var(--gh-border) 70%, transparent);
 }
 
-.about-c6-work li:last-child {
+.welcome-work li:last-child {
   border-bottom: 0;
 }
 
-.about-c6-work-row {
+.welcome-work-row {
   display: grid;
   grid-template-columns: 26px auto minmax(0, 1fr) auto;
   column-gap: 0.62rem;
@@ -1358,11 +1365,19 @@ button {
   text-decoration: none;
 }
 
-.about-c6-work li:last-child .about-c6-work-row {
+.welcome-work li:last-child .welcome-work-row {
   padding-bottom: 0;
 }
 
-.about-c6-work-name {
+.welcome-work-row-button {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.welcome-work-name {
   grid-column: 2;
   grid-row: 1;
   color: var(--gh-text);
@@ -1372,74 +1387,17 @@ button {
   white-space: nowrap;
 }
 
-.about-c6-work-row-link:hover .about-c6-work-name {
+.welcome-work-row-link:hover .welcome-work-name {
   text-decoration: underline;
 }
 
-.about-c6-work-row-link:focus-visible {
+.welcome-work-row-link:focus-visible {
   outline: 1px solid color-mix(in srgb, var(--gh-active) 75%, #ffffff 25%);
   outline-offset: 2px;
   border-radius: 6px;
 }
 
-.about-c6-work-row-static {
-  cursor: default;
-  position: relative;
-}
-
-.about-c6-work-row-static[data-tooltip]::after {
-  opacity: 0;
-  pointer-events: none;
-  transition:
-    opacity 120ms ease,
-    transform 120ms ease;
-}
-
-.about-c6-work-row-static[data-tooltip]::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  left: 0;
-  bottom: calc(100% + 8px);
-  max-width: min(320px, 84vw);
-  padding: 0.42rem 0.55rem;
-  border: 1px solid color-mix(in srgb, var(--gh-border) 88%, transparent);
-  border-radius: 8px;
-  background: color-mix(in srgb, var(--gh-top) 95%, transparent);
-  color: var(--gh-text);
-  font-size: 0.75rem;
-  line-height: 1.35;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
-  transform: translateY(4px);
-  z-index: 5;
-}
-
-.about-c6-work-row-static[data-tooltip]:hover::after,
-.about-c6-work-row-static[data-tooltip]:focus-visible::after,
-.about-c6-work-row-static[data-tooltip]:active::after {
-  opacity: 1;
-}
-
-.about-c6-work-row-static[data-tooltip]:hover::after,
-.about-c6-work-row-static[data-tooltip]:focus-visible::after,
-.about-c6-work-row-static[data-tooltip]:active::after {
-  transform: translateY(0);
-}
-
-.about-c6-work-row-static:focus-visible {
-  outline: 1px solid color-mix(in srgb, var(--gh-active) 75%, #ffffff 25%);
-  outline-offset: 2px;
-  border-radius: 6px;
-}
-
-.about-c6-work-row-static .about-c6-work-name {
-  text-decoration-line: underline;
-  text-decoration-style: dashed;
-  text-decoration-color: color-mix(in srgb, var(--gh-border) 80%, transparent);
-  text-underline-offset: 0.14em;
-  cursor: help;
-}
-
-.about-c6-work-icon {
+.welcome-work-icon {
   grid-column: 1;
   grid-row: 1;
   width: 26px;
@@ -1448,7 +1406,7 @@ button {
   flex: 0 0 auto;
 }
 
-.about-c6-work-role {
+.welcome-work-role {
   grid-column: 3;
   grid-row: 1;
   min-width: 0;
@@ -1459,7 +1417,7 @@ button {
   overflow-wrap: anywhere;
 }
 
-.about-c6-work-period {
+.welcome-work-period {
   grid-column: 4;
   grid-row: 1;
   color: var(--gh-muted);
@@ -1468,12 +1426,12 @@ button {
   line-height: 1.3;
 }
 
-.about-c6-links .about-deep-links {
+.welcome-links .welcome-deep-links {
   display: grid;
   gap: 0;
 }
 
-.about-c6-links .about-deep-link {
+.welcome-links .welcome-deep-link {
   text-align: left;
   display: block;
   border-bottom-style: solid;
@@ -1485,70 +1443,76 @@ button {
   font-weight: 500;
 }
 
-.about-c6-links .about-deep-link:last-child {
+.welcome-links .welcome-deep-link:last-child {
   border-bottom: 0;
   padding-bottom: 0;
 }
 
-.about-deep-link:hover {
+.welcome-deep-link:hover {
   text-decoration: underline;
 }
 
 @media (max-width: 980px) {
-  .about-lab {
+  .welcome-lab {
     padding: 0.8rem 0.75rem 1rem;
   }
 
-  .about-c6-shell {
+  .welcome-shell {
     width: 100%;
     gap: 0.85rem;
     padding-top: 0.1rem;
   }
 
-  .about-c6-card {
+  .welcome-card {
     padding: 1.25rem;
     border-radius: 10px;
   }
 
-  .about-c6-profile {
+  .welcome-profile {
     gap: 1.2rem;
   }
 
-  .about-c6-intro {
+  .welcome-intro {
     gap: 0.65rem;
   }
 
-  .about-c6-name {
+  .welcome-name {
     font-size: 1.2rem;
     line-height: 1.35;
   }
 
-  .about-c6-avatar {
+  .welcome-avatar {
     width: 40px;
     height: 40px;
   }
 
-  .about-c6-prose {
+  .welcome-prose {
     gap: 1rem;
   }
 
-  .about-c6-prose p,
-  .about-c6-prose a {
+  .welcome-prose p,
+  .welcome-prose a {
     font-size: 1rem;
     line-height: 1.5;
   }
 
-  .about-c6-heading {
+  .welcome-heading {
     margin-bottom: 0.5rem;
     font-size: 0.96rem;
     line-height: 1.4;
   }
 
-  .about-c6-work li {
+  .welcome-work li {
     padding: 0;
   }
 
-  .about-c6-work-row {
+  .welcome-work-note {
+    margin-bottom: 0.5rem;
+    font-size: 0.84rem;
+    line-height: 1.35;
+  }
+
+  .welcome-work-row {
     grid-template-columns: 20px minmax(0, 1fr) auto;
     column-gap: 0.55rem;
     row-gap: 0.2rem;
@@ -1556,7 +1520,7 @@ button {
     padding: 0.6rem 0;
   }
 
-  .about-c6-work-name {
+  .welcome-work-name {
     grid-column: 2;
     grid-row: 1;
     display: block;
@@ -1569,7 +1533,7 @@ button {
     color: var(--gh-text);
   }
 
-  .about-c6-work-role {
+  .welcome-work-role {
     display: block;
     grid-column: 1 / -1;
     grid-row: 2;
@@ -1580,7 +1544,7 @@ button {
     color: var(--gh-muted);
   }
 
-  .about-c6-work-period {
+  .welcome-work-period {
     grid-column: 3;
     grid-row: 1;
     justify-self: end;
@@ -1592,7 +1556,7 @@ button {
     color: var(--gh-muted);
   }
 
-  .about-c6-work-icon {
+  .welcome-work-icon {
     grid-column: 1;
     grid-row: 1;
     align-self: center;
@@ -1600,7 +1564,7 @@ button {
     height: 20px;
   }
 
-  .about-c6-links .about-deep-link {
+  .welcome-links .welcome-deep-link {
     font-size: 0.9rem;
     padding: 0.45rem 0;
   }

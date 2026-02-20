@@ -11,21 +11,21 @@ const workRows = [
     role: "Co-Founder + CTO",
     period: "Current",
     icon: "https://prod.r2-perch.com/Avatar-03.png",
-    companyUrl: "https://perch.app",
+    filePath: "work/perch.app",
   },
   {
-    company: "Perch",
+    company: "joinperch.com",
     role: "Co-Founder + CTO",
     period: "Apr 2023 - Nov 2023",
-    icon: "https://prod.r2-perch.com/media/icon.png",
-    companyUrl: "https://joinperch.com",
+    icon: "/images/work/joinperch.com.png",
+    filePath: "work/joinperch.com",
   },
   {
     company: "gm.xyz",
     role: "Co-Founder + CTO",
     period: "Sep 2021 - Apr 2023",
     icon: "https://prod.r2-perch.com/media/gm.xyz.png",
-    companyNote: "This service is deprecated and no longer has an active site.",
+    filePath: "work/gm.xyz",
   },
   {
     company: "ThoughtWorks",
@@ -57,13 +57,13 @@ function OpenFileButton({ onOpenFile, path, children, className = "" }) {
 
 function DeepLinkRail({ onOpenFile }) {
   return (
-    <div className="about-deep-links" aria-label="Open related files">
+    <div className="welcome-deep-links" aria-label="Open related files">
       {deepLinks.map((link) => (
         <OpenFileButton
           key={link.path}
           onOpenFile={onOpenFile}
           path={link.path}
-          className="about-deep-link"
+          className="welcome-deep-link"
         >
           {link.label}
         </OpenFileButton>
@@ -74,28 +74,30 @@ function DeepLinkRail({ onOpenFile }) {
 
 export default function WelcomeTab({ onOpenFile }) {
   return (
-    <div className="about-lab about-c6">
-      <section className="about-c6-shell">
-        <section className="about-c6-profile about-c6-card">
-          <header className="about-c6-intro">
+    <div className="welcome-lab">
+      <section className="welcome-shell">
+        <section className="welcome-profile welcome-card">
+          <header className="welcome-intro">
             <img
               src="https://prod.r2-perch.app/media/matt-mcguiness.png"
               alt="Matt McGuiness"
-              className="about-c6-avatar"
+              className="welcome-avatar"
             />
-            <h1 className="about-c6-name">Matt McGuiness</h1>
+            <h1 className="welcome-name">Matt McGuiness</h1>
           </header>
 
-          <article className="about-c6-prose">
+          <article className="welcome-prose">
             <p>
               I&apos;m a Software Engineer living in NYC working on a startup
-              with my brother <a
+              with my brother{" "}
+              <a
                 href="https://x.com/mikemcg0"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 Mike
-              </a>.
+              </a>
+              .
             </p>
 
             <p>
@@ -127,27 +129,30 @@ export default function WelcomeTab({ onOpenFile }) {
             <p>
               Prior to starting GM Labs, I was a Senior Software Engineer at{" "}
               <a
-                href="https://www.telusdigital.com/willowtree-is-now-telus-digital"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                WillowTree
-              </a>{" "}
-              and{" "}
-              <a
                 href="https://www.thoughtworks.com/en-us"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 Thoughtworks
+              </a>{" "}
+              and{" "}
+              <a
+                href="https://www.telusdigital.com/willowtree-is-now-telus-digital"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                WillowTree
               </a>
               .
             </p>
           </article>
         </section>
 
-        <section className="about-c6-work about-c6-card">
-          <h2 className="about-c6-heading">Work</h2>
+        <section className="welcome-work welcome-card">
+          <h2 className="welcome-heading">Work</h2>
+          <p className="welcome-work-note">
+            Click any item below to read more about the product and its impact.
+          </p>
           <ul>
             {workRows.map((row) => {
               const rowContent = (
@@ -155,35 +160,33 @@ export default function WelcomeTab({ onOpenFile }) {
                   <img
                     src={row.icon}
                     alt={`${row.company} logo`}
-                    className="about-c6-work-icon"
+                    className="welcome-work-icon"
                   />
-                  <strong className="about-c6-work-name">{row.company}</strong>
-                  <time className="about-c6-work-period">{row.period}</time>
-                  <span className="about-c6-work-role">{row.role}</span>
+                  <strong className="welcome-work-name">{row.company}</strong>
+                  <time className="welcome-work-period">{row.period}</time>
+                  <span className="welcome-work-role">{row.role}</span>
                 </>
               );
 
               return (
                 <li key={`${row.company}-${row.period}`}>
-                  {row.companyUrl ? (
+                  {row.filePath ? (
+                    <OpenFileButton
+                      onOpenFile={onOpenFile}
+                      path={row.filePath}
+                      className="welcome-work-row welcome-work-row-link welcome-work-row-button"
+                    >
+                      {rowContent}
+                    </OpenFileButton>
+                  ) : (
                     <a
                       href={row.companyUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="about-c6-work-row about-c6-work-row-link"
+                      className="welcome-work-row welcome-work-row-link"
                     >
                       {rowContent}
                     </a>
-                  ) : (
-                    <div
-                      className="about-c6-work-row about-c6-work-row-static"
-                      data-tooltip={row.companyNote}
-                      title={row.companyNote}
-                      aria-label={`${row.company}. ${row.companyNote}`}
-                      tabIndex={0}
-                    >
-                      {rowContent}
-                    </div>
                   )}
                 </li>
               );
@@ -191,8 +194,8 @@ export default function WelcomeTab({ onOpenFile }) {
           </ul>
         </section>
 
-        <section className="about-c6-links about-c6-card">
-          <h2 className="about-c6-heading">Links</h2>
+        <section className="welcome-links welcome-card">
+          <h2 className="welcome-heading">Links</h2>
           <DeepLinkRail onOpenFile={onOpenFile} />
         </section>
       </section>

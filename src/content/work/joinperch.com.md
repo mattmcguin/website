@@ -1,4 +1,4 @@
-# ![Perch logo](https://prod.r2-perch.com/media/icon.png) Perch ([joinperch.com](https://joinperch.com))
+# ![Perch logo](https://mattmcguiness.com/images/work/joinperch.com.png) Perch ([joinperch.com](https://joinperch.com))
 ![Users](https://img.shields.io/badge/Users-~100K-2ea043?style=for-the-badge) ![Creators](https://img.shields.io/badge/Creators-1%2C000%2B-1f6feb?style=for-the-badge) ![Role](https://img.shields.io/badge/Role-Co--Founder%20%2B%20CTO-6f42c1?style=for-the-badge)
 
 Creator platform that turns audience questions into newsletters and SEO-friendly knowledge pages.
