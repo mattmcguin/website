@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 const socialLinks = [
   {
     name: "github",
@@ -46,6 +48,87 @@ const workRows = [
     companyUrl: "https://www.telusdigital.com/willowtree-is-now-telus-digital",
   },
 ];
+
+const booksRead = [
+  { title: "Iron Gold", author: "Pierce Brown", coverSrc: "https://covers.openlibrary.org/b/id/14511722-M.jpg" },
+  { title: "Frankenstein (1818)", author: "Mary Shelley", coverSrc: "https://covers.openlibrary.org/b/id/7267770-M.jpg" },
+  { title: "Empire of Silence", author: "Christopher Ruocchio", coverSrc: "https://covers.openlibrary.org/b/id/13278787-M.jpg" },
+  { title: "God Emperor of Dune", author: "Frank Herbert", coverSrc: "https://covers.openlibrary.org/b/id/6711531-M.jpg" },
+  { title: "The Strength of the Few", author: "James Islington", coverSrc: "https://covers.openlibrary.org/b/id/15150800-M.jpg" },
+  { title: "The Will of the Many", author: "James Islington", coverSrc: "https://covers.openlibrary.org/b/id/15149934-M.jpg" },
+  { title: "Last Argument of Kings", author: "Joe Abercrombie", coverSrc: "https://covers.openlibrary.org/b/id/6901175-M.jpg" },
+  { title: "Before They Are Hanged", author: "Joe Abercrombie", coverSrc: "https://covers.openlibrary.org/b/id/14595640-M.jpg" },
+  { title: "The Blade Itself", author: "Joe Abercrombie", coverSrc: "https://covers.openlibrary.org/b/id/14543422-M.jpg" },
+  { title: "AI 2041", author: "Kai-Fu Lee and Chen Qiufan", coverSrc: "https://covers.openlibrary.org/b/id/11101676-M.jpg" },
+  { title: "Demon Copperhead", author: "Barbara Kingsolver", coverSrc: "https://covers.openlibrary.org/b/id/13141227-M.jpg" },
+  { title: "Morning Star", author: "Pierce Brown", coverSrc: "https://covers.openlibrary.org/b/id/8566174-M.jpg" },
+  { title: "Golden Son", author: "Pierce Brown", coverSrc: "https://covers.openlibrary.org/b/id/8454351-M.jpg" },
+  { title: "Red Rising", author: "Pierce Brown", coverSrc: "https://covers.openlibrary.org/b/id/7316188-M.jpg" },
+  { title: "Jurassic Park", author: "Michael Crichton", coverSrc: "https://covers.openlibrary.org/b/id/12882940-M.jpg" },
+  { title: "The Martian", author: "Andy Weir", coverSrc: "https://covers.openlibrary.org/b/id/11447888-M.jpg" },
+  { title: "A Court of Thorns and Roses", author: "Sarah J. Maas", coverSrc: "https://covers.openlibrary.org/b/id/8738585-M.jpg" },
+  { title: "The Founders", author: "Jimmy Soni", coverSrc: null },
+  { title: "Becoming Steve Jobs", author: "Brent Schlender and Rick Tetzeli", coverSrc: "https://covers.openlibrary.org/b/id/8191112-M.jpg" },
+  { title: "Children of Dune", author: "Frank Herbert", coverSrc: "https://covers.openlibrary.org/b/id/6976407-M.jpg" },
+  { title: "Dune Messiah", author: "Frank Herbert", coverSrc: "https://covers.openlibrary.org/b/id/2421405-M.jpg" },
+  { title: "Dune", author: "Frank Herbert", coverSrc: "https://covers.openlibrary.org/b/id/11481354-M.jpg" },
+  { title: "The Three-Body Problem", author: "Liu Cixin", coverSrc: "https://covers.openlibrary.org/b/id/10526598-M.jpg" },
+  { title: "The Hitchhiker's Guide to the Galaxy", author: "Douglas Adams", coverSrc: "https://covers.openlibrary.org/b/id/14848877-M.jpg" },
+  { title: "Rendezvous with Rama", author: "Arthur C. Clarke", coverSrc: "https://covers.openlibrary.org/b/id/13472608-M.jpg" },
+  { title: "Children of Time", author: "Adrian Tchaikovsky", coverSrc: "https://covers.openlibrary.org/b/id/8264706-M.jpg" },
+  { title: "Project Hail Mary", author: "Andy Weir", coverSrc: "https://covers.openlibrary.org/b/id/11200092-M.jpg" },
+  { title: "Nexus", author: "Ramez Naam", coverSrc: "https://covers.openlibrary.org/b/id/7261361-M.jpg" },
+  { title: "Avogadro Corp", author: "William Hertling", coverSrc: "https://covers.openlibrary.org/b/id/7246548-M.jpg" },
+  { title: "Recursion", author: "Blake Crouch", coverSrc: "https://covers.openlibrary.org/b/id/8748478-M.jpg" },
+  { title: "Man's Search for Meaning", author: "Viktor E. Frankl", coverSrc: "https://covers.openlibrary.org/b/id/465226-M.jpg" },
+  { title: "The Top Five Regrets of the Dying", author: "Bronnie Ware", coverSrc: "https://covers.openlibrary.org/b/id/9071458-M.jpg" },
+  { title: "The Diamond Age", author: "Neal Stephenson", coverSrc: "https://covers.openlibrary.org/b/id/8598269-M.jpg" },
+  { title: "Snow Crash", author: "Neal Stephenson", coverSrc: "https://covers.openlibrary.org/b/id/392508-M.jpg" },
+  { title: "Dark Matter", author: "Blake Crouch", coverSrc: "https://covers.openlibrary.org/b/id/7436634-M.jpg" },
+];
+
+const BOOK_COVER_PLACEHOLDER_SRC = "/images/books/placeholder-cover.svg";
+
+function escapeSvgText(value) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function createBookCover(title, author, index) {
+  const hue = (index * 29 + 31) % 360;
+  const accentHue = (hue + 34) % 360;
+  const safeTitle = escapeSvgText(title);
+  const safeAuthor = escapeSvgText(author);
+
+  return `data:image/svg+xml,${encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="180" height="270" viewBox="0 0 180 270">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="hsl(${hue} 61% 35%)" />
+          <stop offset="100%" stop-color="hsl(${accentHue} 64% 24%)" />
+        </linearGradient>
+      </defs>
+      <rect width="180" height="270" rx="12" fill="url(#bg)" />
+      <rect x="14" y="14" width="152" height="242" rx="8" fill="rgba(0,0,0,0.14)" stroke="rgba(255,255,255,0.2)" />
+      <text x="24" y="64" font-size="14" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-weight="700" fill="white">${safeTitle}</text>
+      <text x="24" y="228" font-size="10" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" fill="rgba(255,255,255,0.9)">${safeAuthor}</text>
+    </svg>`
+  )}`;
+}
+
+function getBookKey(book) {
+  return `${book.title}::${book.author}`;
+}
+
+const booksReadWithCovers = booksRead.map((book, index) => ({
+  ...book,
+  key: getBookKey(book),
+  fallbackCoverSrc: createBookCover(book.title, book.author, index),
+}));
 
 const resumePath = "/matt-mcguiness-resume.pdf";
 
@@ -102,6 +185,37 @@ function SocialRail() {
         </a>
       ))}
     </div>
+  );
+}
+
+function BookCover({ src, fallbackSrc, alt, className }) {
+  const [currentSrc, setCurrentSrc] = useState(
+    src || fallbackSrc || BOOK_COVER_PLACEHOLDER_SRC
+  );
+
+  useEffect(() => {
+    setCurrentSrc(src || fallbackSrc || BOOK_COVER_PLACEHOLDER_SRC);
+  }, [src, fallbackSrc]);
+
+  function handleError() {
+    if (fallbackSrc && currentSrc !== fallbackSrc) {
+      setCurrentSrc(fallbackSrc);
+      return;
+    }
+
+    if (currentSrc !== BOOK_COVER_PLACEHOLDER_SRC) {
+      setCurrentSrc(BOOK_COVER_PLACEHOLDER_SRC);
+    }
+  }
+
+  return (
+    <img
+      src={currentSrc}
+      alt={alt}
+      className={className}
+      loading="lazy"
+      onError={handleError}
+    />
   );
 }
 
@@ -222,6 +336,33 @@ export default function WelcomeTab({ onOpenFile, introAction = null }) {
           <p className="welcome-work-footer-note">
             Tap a project above to read its case study.
           </p>
+        </section>
+
+        <section className="welcome-library welcome-card">
+          <div className="welcome-library-header">
+            <h2 className="welcome-heading">Library</h2>
+            <span className="welcome-library-count">
+              {booksReadWithCovers.length} books
+            </span>
+          </div>
+          <ul className="welcome-library-list">
+            {booksReadWithCovers.map((book) => (
+              <li key={book.key}>
+                <article className="welcome-library-row">
+                  <BookCover
+                    src={book.coverSrc}
+                    fallbackSrc={book.fallbackCoverSrc}
+                    alt={`Cover for ${book.title}`}
+                    className="welcome-library-cover"
+                  />
+                  <div className="welcome-library-meta">
+                    <strong className="welcome-library-title">{book.title}</strong>
+                    <span className="welcome-library-author">{book.author}</span>
+                  </div>
+                </article>
+              </li>
+            ))}
+          </ul>
         </section>
       </section>
     </div>
