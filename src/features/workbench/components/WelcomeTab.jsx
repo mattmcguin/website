@@ -50,6 +50,7 @@ const workRows = [
 ];
 
 const booksRead = [
+  { title: "Runnin' Down a Dream", author: "Bill Gurley", coverSrc: "https://images1.penguinrandomhouse.com/cover/700jpg/9780593799666" },
   { title: "Iron Gold", author: "Pierce Brown", coverSrc: "https://covers.openlibrary.org/b/id/14511722-M.jpg" },
   { title: "Frankenstein (1818)", author: "Mary Shelley", coverSrc: "https://covers.openlibrary.org/b/id/7267770-M.jpg" },
   { title: "Empire of Silence", author: "Christopher Ruocchio", coverSrc: "https://covers.openlibrary.org/b/id/13278787-M.jpg" },
