@@ -1668,6 +1668,22 @@ button {
   border-bottom: 0;
 }
 
+.welcome-library-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.welcome-library-link:hover .welcome-library-title {
+  text-decoration: underline;
+}
+
+.welcome-library-link:focus-visible {
+  outline: 1px solid color-mix(in srgb, var(--gh-active) 75%, #ffffff 25%);
+  outline-offset: 2px;
+}
+
 .welcome-library-row {
   display: grid;
   grid-template-columns: 30px minmax(0, 1fr);

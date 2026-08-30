@@ -50,6 +50,24 @@ const workRows = [
 ];
 
 const booksRead = [
+  {
+    title: "The Fountainhead",
+    author: "Ayn Rand",
+    coverSrc: "https://covers.openlibrary.org/b/id/6767765-M.jpg",
+    goodreadsUrl: "https://www.goodreads.com/book/show/2122.The_Fountainhead",
+  },
+  {
+    title: "Consider Phlebas",
+    author: "Iain M. Banks",
+    coverSrc: "https://covers.openlibrary.org/b/id/1009644-M.jpg",
+    goodreadsUrl: "https://www.goodreads.com/book/show/8279737-consider-phlebas",
+  },
+  {
+    title: "Children of Ruin",
+    author: "Adrian Tchaikovsky",
+    coverSrc: "https://covers.openlibrary.org/b/id/8750923-M.jpg",
+    goodreadsUrl: "https://www.goodreads.com/book/show/41742154-children-of-ruin",
+  },
   { title: "Runnin' Down a Dream", author: "Bill Gurley", coverSrc: "https://images1.penguinrandomhouse.com/cover/700jpg/9780593799666" },
   { title: "Iron Gold", author: "Pierce Brown", coverSrc: "https://covers.openlibrary.org/b/id/14511722-M.jpg" },
   { title: "Frankenstein (1818)", author: "Mary Shelley", coverSrc: "https://covers.openlibrary.org/b/id/7267770-M.jpg" },
@@ -347,8 +365,8 @@ export default function WelcomeTab({ onOpenFile, introAction = null }) {
             </span>
           </div>
           <ul className="welcome-library-list">
-            {booksReadWithCovers.map((book) => (
-              <li key={book.key}>
+            {booksReadWithCovers.map((book) => {
+              const bookRow = (
                 <article className="welcome-library-row">
                   <BookCover
                     src={book.coverSrc}
@@ -361,8 +379,25 @@ export default function WelcomeTab({ onOpenFile, introAction = null }) {
                     <span className="welcome-library-author">{book.author}</span>
                   </div>
                 </article>
-              </li>
-            ))}
+              );
+
+              return (
+                <li key={book.key}>
+                  {book.goodreadsUrl ? (
+                    <a
+                      href={book.goodreadsUrl}
+                      className="welcome-library-link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {bookRow}
+                    </a>
+                  ) : (
+                    bookRow
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </section>
       </section>
