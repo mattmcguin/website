@@ -106,6 +106,45 @@ const booksRead = [
   { title: "Dark Matter", author: "Blake Crouch", coverSrc: "https://covers.openlibrary.org/b/id/7436634-M.jpg" },
 ];
 
+const goodreadsUrlByBook = {
+  "Runnin' Down a Dream::Bill Gurley": "https://www.goodreads.com/book/show/237134711-runnin-down-a-dream",
+  "Iron Gold::Pierce Brown": "https://www.goodreads.com/book/show/33257757-iron-gold",
+  "Frankenstein (1818)::Mary Shelley": "https://www.goodreads.com/book/show/58909116-frankenstein",
+  "Empire of Silence::Christopher Ruocchio": "https://www.goodreads.com/book/show/36454667-empire-of-silence",
+  "God Emperor of Dune::Frank Herbert": "https://www.goodreads.com/book/show/44439415-god-emperor-of-dune",
+  "The Strength of the Few::James Islington": "https://www.goodreads.com/book/show/169485073-the-strength-of-the-few",
+  "The Will of the Many::James Islington": "https://www.goodreads.com/book/show/58416952-the-will-of-the-many",
+  "Last Argument of Kings::Joe Abercrombie": "https://www.goodreads.com/book/show/944076.Last_Argument_of_Kings",
+  "Before They Are Hanged::Joe Abercrombie": "https://www.goodreads.com/book/show/902715.Before_They_Are_Hanged",
+  "The Blade Itself::Joe Abercrombie": "https://www.goodreads.com/book/show/944073.The_Blade_Itself",
+  "AI 2041::Kai-Fu Lee and Chen Qiufan": "https://www.goodreads.com/book/show/56377201-ai-2041",
+  "Demon Copperhead::Barbara Kingsolver": "https://www.goodreads.com/book/show/60194162-demon-copperhead",
+  "Morning Star::Pierce Brown": "https://www.goodreads.com/book/show/18966806-morning-star",
+  "Golden Son::Pierce Brown": "https://www.goodreads.com/book/show/18966819-golden-son",
+  "Red Rising::Pierce Brown": "https://www.goodreads.com/book/show/15839976-red-rising",
+  "Jurassic Park::Michael Crichton": "https://www.goodreads.com/book/show/40604658-jurassic-park",
+  "The Martian::Andy Weir": "https://www.goodreads.com/book/show/18007564-the-martian",
+  "A Court of Thorns and Roses::Sarah J. Maas": "https://www.goodreads.com/book/show/50659467-a-court-of-thorns-and-roses",
+  "The Founders::Jimmy Soni": "https://www.goodreads.com/book/show/54304287-the-founders",
+  "Becoming Steve Jobs::Brent Schlender and Rick Tetzeli": "https://www.goodreads.com/book/show/22318382-becoming-steve-jobs",
+  "Children of Dune::Frank Herbert": "https://www.goodreads.com/book/show/44492286-children-of-dune",
+  "Dune Messiah::Frank Herbert": "https://www.goodreads.com/book/show/44492285-dune-messiah",
+  "Dune::Frank Herbert": "https://www.goodreads.com/book/show/44767458-dune",
+  "The Three-Body Problem::Liu Cixin": "https://www.goodreads.com/book/show/20518872-the-three-body-problem",
+  "The Hitchhiker's Guide to the Galaxy::Douglas Adams": "https://www.goodreads.com/book/show/11.The_Hitchhiker_s_Guide_to_the_Galaxy",
+  "Rendezvous with Rama::Arthur C. Clarke": "https://www.goodreads.com/book/show/112537.Rendezvous_with_Rama",
+  "Children of Time::Adrian Tchaikovsky": "https://www.goodreads.com/book/show/25499718-children-of-time",
+  "Project Hail Mary::Andy Weir": "https://www.goodreads.com/book/show/54493401-project-hail-mary",
+  "Nexus::Ramez Naam": "https://www.goodreads.com/book/show/13642710-nexus",
+  "Avogadro Corp::William Hertling": "https://www.goodreads.com/book/show/13184491-avogadro-corp",
+  "Recursion::Blake Crouch": "https://www.goodreads.com/book/show/42046112-recursion",
+  "Man's Search for Meaning::Viktor E. Frankl": "https://www.goodreads.com/book/show/4069.Man_s_Search_for_Meaning",
+  "The Top Five Regrets of the Dying::Bronnie Ware": "https://www.goodreads.com/book/show/13059271-the-top-five-regrets-of-the-dying",
+  "The Diamond Age::Neal Stephenson": "https://www.goodreads.com/book/show/827.The_Diamond_Age",
+  "Snow Crash::Neal Stephenson": "https://www.goodreads.com/book/show/61240297-snow-crash",
+  "Dark Matter::Blake Crouch": "https://www.goodreads.com/book/show/27833670-dark-matter",
+};
+
 const BOOK_COVER_PLACEHOLDER_SRC = "/images/books/placeholder-cover.svg";
 
 function escapeSvgText(value) {
@@ -143,9 +182,18 @@ function getBookKey(book) {
   return `${book.title}::${book.author}`;
 }
 
+function getGoodreadsUrl(book) {
+  if (book.goodreadsUrl) return book.goodreadsUrl;
+
+  const url = goodreadsUrlByBook[getBookKey(book)];
+  if (!url) throw new Error(`Missing Goodreads URL for ${getBookKey(book)}`);
+  return url;
+}
+
 const booksReadWithCovers = booksRead.map((book, index) => ({
   ...book,
   key: getBookKey(book),
+  goodreadsUrl: getGoodreadsUrl(book),
   fallbackCoverSrc: createBookCover(book.title, book.author, index),
 }));
 
@@ -383,18 +431,14 @@ export default function WelcomeTab({ onOpenFile, introAction = null }) {
 
               return (
                 <li key={book.key}>
-                  {book.goodreadsUrl ? (
-                    <a
-                      href={book.goodreadsUrl}
-                      className="welcome-library-link"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {bookRow}
-                    </a>
-                  ) : (
-                    bookRow
-                  )}
+                  <a
+                    href={book.goodreadsUrl}
+                    className="welcome-library-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {bookRow}
+                  </a>
                 </li>
               );
             })}
