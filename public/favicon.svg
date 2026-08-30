@@ -1,14 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Matt McGuiness">
   <defs>
     <clipPath id="plate">
-      <rect x="4" y="4" width="56" height="56" rx="14"/>
+      <rect width="64" height="64" rx="14"/>
     </clipPath>
   </defs>
-  <rect x="4" y="4" width="56" height="56" rx="14" fill="#1e1f1c"/>
+  <rect width="64" height="64" rx="14" fill="#1e1f1c"/>
   <g clip-path="url(#plate)" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
-    <g transform="translate(2.1 -1.4)">
-      <path d="M14 46V27a9 9 0 0 1 18 0V46V27a9 9 0 0 1 18 0V46" stroke="#79c0ff" transform="translate(-4 3)"/>
-      <path d="M14 46V27a9 9 0 0 1 18 0V46V27a9 9 0 0 1 18 0V46" stroke="#f8f8f2"/>
+    <g transform="translate(32 32) scale(0.78) translate(-32 -32)">
+      <g transform="translate(2.1 -1.4)">
+        <path d="M14 46V27a9 9 0 0 1 18 0V46V27a9 9 0 0 1 18 0V46" stroke="#79c0ff" transform="translate(-4 3)"/>
+        <path d="M14 46V27a9 9 0 0 1 18 0V46V27a9 9 0 0 1 18 0V46" stroke="#f8f8f2"/>
+      </g>
     </g>
   </g>
 </svg>
