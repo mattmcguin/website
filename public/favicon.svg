@@ -1,17 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Alternate favicon 2">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Matt McGuiness">
   <defs>
-    <linearGradient id="bg2" x1="8" y1="56" x2="56" y2="8" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#111827" />
-      <stop offset="1" stop-color="#374151" />
-    </linearGradient>
-    <linearGradient id="m2" x1="16" y1="48" x2="48" y2="16" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#f59e0b" />
-      <stop offset="1" stop-color="#ef4444" />
-    </linearGradient>
+    <clipPath id="plate">
+      <rect x="4" y="4" width="56" height="56" rx="14"/>
+    </clipPath>
   </defs>
-  <rect x="4" y="4" width="56" height="56" rx="14" fill="url(#bg2)" />
-  <path
-    fill="url(#m2)"
-    d="M15 46V18h7l10 12 10-12h7v28h-7V30l-8 10h-4l-8-10v16z"
-  />
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="#1e1f1c"/>
+  <g clip-path="url(#plate)" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="translate(2.1 -1.4)">
+      <path d="M14 46V27a9 9 0 0 1 18 0V46V27a9 9 0 0 1 18 0V46" stroke="#79c0ff" transform="translate(-4 3)"/>
+      <path d="M14 46V27a9 9 0 0 1 18 0V46V27a9 9 0 0 1 18 0V46" stroke="#f8f8f2"/>
+    </g>
+  </g>
 </svg>
