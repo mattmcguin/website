@@ -12,7 +12,7 @@ export default function TopBar({
       <div className="gh-topbar-inner">
         <div className="gh-left">
           <img
-            src="https://prod.r2-perch.app/media/matt-mcguiness.png"
+            src="/images/matt-mcguiness.jpg"
             alt="Matt McGuiness"
             className="gh-avatar"
           />

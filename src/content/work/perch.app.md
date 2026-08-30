@@ -1,4 +1,4 @@
-# <img src="https://prod.r2-perch.com/Avatar-03.png" alt="Perch Reader logo" width="30" height="30" /> Perch Reader ([perch.app](https://perch.app))
+# <img src="/images/work/perch-reader.png" alt="Perch Reader logo" width="30" height="30" /> Perch Reader ([perch.app](https://perch.app))
 
 ![Users](https://img.shields.io/badge/Users-~20K-2ea043?style=for-the-badge) ![Publications](https://img.shields.io/badge/Publications-13K-1f6feb?style=for-the-badge) ![Articles](https://img.shields.io/badge/Articles-3.3M-6f42c1?style=for-the-badge)
 

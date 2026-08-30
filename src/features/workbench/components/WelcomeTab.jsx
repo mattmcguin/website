@@ -23,14 +23,14 @@ const workRows = [
     company: "Perch",
     role: "Co-Founder + CTO",
     period: "Current",
-    icon: "https://prod.r2-perch.com/Avatar-03.png",
+    icon: "/images/work/perch-reader.png",
     filePath: "work/perch.app",
   },
   {
     company: "gm.xyz",
     role: "Co-Founder + CTO",
     period: "Sep 2021 - Apr 2023",
-    icon: "https://prod.r2-perch.com/media/gm.xyz.png",
+    icon: "/images/work/gm-xyz.png",
     filePath: "work/gm.xyz",
   },
   {
@@ -227,7 +227,7 @@ export default function WelcomeTab({ onOpenFile, introAction = null }) {
         <section className="welcome-profile welcome-card">
           <header className="welcome-intro">
             <img
-              src="https://prod.r2-perch.app/media/matt-mcguiness.png"
+              src="/images/matt-mcguiness.jpg"
               alt="Matt McGuiness"
               className="welcome-avatar"
             />

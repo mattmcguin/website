@@ -1,4 +1,4 @@
-# <img src="https://prod.r2-perch.com/media/gm.xyz.png" alt="gm.xyz logo" width="30" height="30" /> gm.xyz ([gm.xyz](https://gm.xyz))
+# <img src="/images/work/gm-xyz.png" alt="gm.xyz logo" width="30" height="30" /> gm.xyz ([gm.xyz](https://gm.xyz))
 
 ![Total Users](https://img.shields.io/badge/Total%20Users-~30K-2ea043?style=for-the-badge)
 
